@@ -9,13 +9,6 @@ function App() {
   const [htmlString, setHtmlString] = useState(exampleCode);
   const [cssString, setCssString] = useState("");
 
-  const prettifyHtml = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setHtmlString(beautify.html(htmlString));
-  };
-  const prettifyCss = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setCssString(beautify["css"](cssString));
-  };
-
   const handleConvertClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -25,17 +18,15 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <div className="htmlEditor">
-        <Editor
-          value={htmlString}
-          setValue={setHtmlString}
-          mode={"html"}
-          theme={"cobalt"}
-          name={"html-string-editor"}
-        />
-        <button onClick={prettifyHtml}>prettify</button>
-        <button>copy</button>
-      </div>
+      <Editor
+        value={htmlString}
+        setValue={setHtmlString}
+        mode={"html"}
+        lang={"html"}
+        theme={"cobalt"}
+        name={"html-string-editor"}
+        wrapperClass={"htmlEditor"}
+      />
       <div className="convertWrapper">
         <button onClick={handleConvertClick}>convert</button>
       </div>
@@ -44,19 +35,14 @@ function App() {
           value={cssString}
           setValue={setCssString}
           mode={"scss"}
+          lang={"css"}
           theme={"cobalt"}
           name={"css-editor"}
+          wrapperClass={"cssEditor"}
         />
-        <button onClick={prettifyCss}>prettify</button>
-        <button onClick={prettifyCss}>copy</button>
       </div>
     </div>
   );
-  // return (
-  //   <div className={styles.App}>
-  //     <Editor />
-  //   </div>
-  // );
 }
 
 export default App;
