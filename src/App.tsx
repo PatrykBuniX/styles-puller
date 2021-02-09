@@ -18,19 +18,21 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Editor
-        value={htmlString}
-        setValue={setHtmlString}
-        mode={"html"}
-        lang={"html"}
-        theme={"cobalt"}
-        name={"html-string-editor"}
-        wrapperClass={"htmlEditor"}
-      />
-      <div className="convertWrapper">
-        <button onClick={handleConvertClick}>convert</button>
-      </div>
-      <div className="cssEditor">
+      <header className={styles.header}>
+        <h1>Styles Puller</h1>
+      </header>
+      <main className={styles.main}>
+        <Editor
+          value={htmlString}
+          setValue={setHtmlString}
+          mode={"html"}
+          lang={"html"}
+          theme={"cobalt"}
+          name={"html-string-editor"}
+        />
+        <div className="convertWrapper">
+          <button onClick={handleConvertClick}>convert</button>
+        </div>
         <Editor
           value={cssString}
           setValue={setCssString}
@@ -38,9 +40,8 @@ function App() {
           lang={"css"}
           theme={"cobalt"}
           name={"css-editor"}
-          wrapperClass={"cssEditor"}
         />
-      </div>
+      </main>
     </div>
   );
 }
