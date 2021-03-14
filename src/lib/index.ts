@@ -39,6 +39,39 @@ const htmlToObject = (htmlString: string): SelectorsObject => {
   return selectorsObject;
 };
 
+type SelectorsArr = Array<string | SelectorsArr>;
+
+// [[.navbar, []]]
+
+const htmlToArray = (htmlString: string): SelectorsArr => {
+  console.log(htmlString);
+  function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsArr {
+    const currentElement: SelectorsArr = [];
+    Array.from(nodes).forEach((node) => {
+      if (isHTMLElement(node)) {
+        const { classList, tagName } = node;
+        const selector = classList.value
+          ? `${classList.value
+              .split(" ")
+              .map((c) => `.${c}`)
+              .join("")}`
+          : tagName.toLowerCase();
+
+        const children = addSelectors(node.childNodes);
+        console.log("children: ", children.length);
+        if (children.length) {
+          currentElement.push([selector, children]);
+        } else {
+          currentElement.push([selector]);
+        }
+      }
+    });
+    return currentElement;
+  }
+  const nodeElement = createElementFromHTML(htmlString);
+  return addSelectors(nodeElement);
+};
+
 const selectorsObjectToScss = (selectorsObject: SelectorsObject): string => {
   console.log(selectorsObject);
 
@@ -62,6 +95,7 @@ const selectorsObjectToScss = (selectorsObject: SelectorsObject): string => {
 
 export const htmlStringToScss = (htmlString: string): string => {
   const selectorsObject = htmlToObject(htmlString);
+  console.log(htmlToArray(htmlString));
   return selectorsObjectToScss(selectorsObject);
 };
 
