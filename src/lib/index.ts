@@ -1,5 +1,5 @@
 const createElementFromHTML = (htmlString: string) => {
-  var div = document.createElement("div");
+  const div = document.createElement("div");
   div.innerHTML = htmlString.trim();
   return div.childNodes;
 };
@@ -39,42 +39,39 @@ const htmlToObject = (htmlString: string): SelectorsObject => {
   return selectorsObject;
 };
 
-type SelectorsArr = Array<string | SelectorsArr>;
+type SelectorsObjectsArr = {
+  selector: string;
+  children: SelectorsObjectsArr;
+}[];
 
-// [[.navbar, []]]
-
-const htmlToArray = (htmlString: string): SelectorsArr => {
-  console.log(htmlString);
-  function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsArr {
-    const currentElement: SelectorsArr = [];
-    Array.from(nodes).forEach((node) => {
-      if (isHTMLElement(node)) {
-        const { classList, tagName } = node;
-        const selector = classList.value
-          ? `${classList.value
-              .split(" ")
-              .map((c) => `.${c}`)
-              .join("")}`
-          : tagName.toLowerCase();
-
-        const children = addSelectors(node.childNodes);
-        console.log("children: ", children.length);
-        if (children.length) {
-          currentElement.push([selector, children]);
-        } else {
-          currentElement.push([selector]);
-        }
-      }
-    });
-    return currentElement;
+const htmlToObject2 = (htmlString: string): SelectorsObjectsArr => {
+  function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObjectsArr {
+    return Array.from(nodes).reduce<SelectorsObjectsArr>((acc, node) => {
+      if (!isHTMLElement(node)) return acc;
+      const { classList, tagName } = node;
+      const selector = classList.value
+        ? `${classList.value
+            .split(" ")
+            .map((c) => `.${c}`)
+            .join("")}`
+        : tagName.toLowerCase();
+      const children = addSelectors(node.childNodes);
+      acc.push({
+        selector,
+        children: children ? children : [],
+      });
+      return acc;
+    }, []);
   }
   const nodeElement = createElementFromHTML(htmlString);
-  return addSelectors(nodeElement);
+  const selectorsObjectArr = addSelectors(nodeElement);
+  console.log(selectorsObjectArr);
+  const merged = mergeDuplicates(selectorsObjectArr);
+  console.log(merged);
+  return selectorsObjectArr;
 };
 
 const selectorsObjectToScss = (selectorsObject: SelectorsObject): string => {
-  console.log(selectorsObject);
-
   const getSelectors = (object: any) => {
     let currentElement = "";
     Object.keys(object).forEach((key) => {
@@ -95,26 +92,43 @@ const selectorsObjectToScss = (selectorsObject: SelectorsObject): string => {
 
 export const htmlStringToScss = (htmlString: string): string => {
   const selectorsObject = htmlToObject(htmlString);
-  console.log(htmlToArray(htmlString));
+  htmlToObject2(htmlString);
   return selectorsObjectToScss(selectorsObject);
 };
 
-//tooling
-// const htmlStringForm = <HTMLFormElement>(
-//   document.getElementById("html-string-form")
-// );
-// const resultForm = <HTMLFormElement>document.getElementById("result-form");
-// const htmlTextArea = <HTMLTextAreaElement>document.getElementById("htmlString");
-// const resultTextArea = <HTMLTextAreaElement>document.getElementById("result");
+const testArray = [
+  {
+    s: "me",
+    child: [
+      { s: "me-child", child: [{ s: "meme", child: [] }] },
+      { s: "me-child", child: [{ s: "meme2", child: [] }] },
+      { s: "me-child", child: [{ s: "meme3", child: [] }] },
+    ],
+  },
+  { s: "you", child: [{ s: "you-child", child: [] }] },
+  { s: "me", child: [{ s: "me-2nd-child", child: [] }] },
+  { s: "me", child: [{ s: "me-3rd-child", child: [] }] },
+  { s: "she", child: [{ s: "she-child", child: [] }] },
+];
 
-// const handleHTMLSubmit = (event: Event) => {
-//   event.preventDefault();
-//   const selectorsObject = htmlToObject(htmlTextArea.value);
-//   resultTextArea.value = selectorsObjectToCss(selectorsObject);
-// };
-// const handleCopyResult = (event: Event) => {
-//   event.preventDefault();
-
-//   resultTextArea.select();
-//   document.execCommand("copy");
-// };
+function mergeDuplicates(arr: Array<any>) {
+  const newArray: Array<any> = [];
+  arr.forEach((item, i, self) => {
+    const duplicates = self.filter((o) => item.selector === o.selector);
+    //there are duplicates
+    //todo: mege duplicated objects
+    const allChildren: Array<any> = [];
+    duplicates.forEach((d) => {
+      allChildren.push(...d.children);
+    });
+    const newElement = {
+      selector: duplicates[0].selector,
+      children: mergeDuplicates(allChildren),
+    };
+    if (!newArray.find((el) => el.selector === newElement.selector)) {
+      newArray.push(newElement);
+    }
+    // console.log(merged);
+  });
+  return newArray;
+}
