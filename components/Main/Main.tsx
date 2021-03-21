@@ -1,11 +1,17 @@
-import styles from "./App.module.scss";
 import { useState } from "react";
 import beautify from "js-beautify";
-import { htmlStringToScss } from "src/lib";
-import { Editor } from "./components/editor/Editor";
+import { htmlStringToScss } from "../../lib/";
+import styles from "./Main.module.scss";
+
+import dynamic from "next/dynamic";
+//import Editor dynamicly because it uses window object uder the hood
+const Editor = dynamic(import("../../components/Editor/Editor"), {
+  ssr: false,
+});
+
 const exampleCode = `<div class="wrapper"><p class="text">Hello world</p></div>`;
 
-function App() {
+export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);
   const [cssString, setCssString] = useState("");
 
@@ -16,6 +22,14 @@ function App() {
     setCssString(beautify.css(css));
   };
 
+  const updateEditorValue = (lang: string, value: string) => {
+    if (lang === "html") {
+      setHtmlString(value);
+    } else if (lang === "css") {
+      setCssString(value);
+    }
+  };
+
   return (
     <div className={styles.App}>
       <header className={styles.header}>
@@ -24,26 +38,22 @@ function App() {
       <main className={styles.main}>
         <Editor
           value={htmlString}
-          setValue={setHtmlString}
-          mode={"html"}
+          updateEditorValue={updateEditorValue}
           lang={"html"}
+          mode={"html"}
           theme={"cobalt"}
-          name={"html-string-editor"}
         />
         <div className="convertWrapper">
           <button onClick={handleConvertClick}>convert</button>
         </div>
         <Editor
           value={cssString}
-          setValue={setCssString}
-          mode={"scss"}
+          updateEditorValue={updateEditorValue}
           lang={"css"}
+          mode={"scss"}
           theme={"cobalt"}
-          name={"css-editor"}
         />
       </main>
     </div>
   );
-}
-
-export default App;
+};

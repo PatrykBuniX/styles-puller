@@ -1,20 +1,24 @@
-import AceEditor from "react-ace";
-import "ace-builds/webpack-resolver";
 import beautify from "js-beautify";
 import styles from "./Editor.module.scss";
+//react ace editor
+import AceEditor from "react-ace";
+import "brace/mode/html";
+import "brace/mode/scss";
+import "brace/theme/cobalt";
 
+//codemirror
 interface Props {
-  setValue: any;
+  updateEditorValue: (lang: string, value: string) => void;
   value: any;
+  lang: "html" | "css";
   mode: string;
-  lang: string;
   theme: string;
-  name: string;
 }
 
-export const Editor = ({ setValue, value, mode, lang, theme, name }: Props) => {
-  const prettify = (lang: string, code: string) => {
-    setValue(beautify[lang](code));
+const Editor = ({ updateEditorValue, value, lang, theme, mode }: Props) => {
+  console.log("theme: ", theme);
+  const prettify = (lang: "html" | "css", code: string) => {
+    updateEditorValue(lang, beautify[lang](code));
   };
   const handleCopyClick = (value: string) => {
     console.log(value);
@@ -33,15 +37,15 @@ export const Editor = ({ setValue, value, mode, lang, theme, name }: Props) => {
   return (
     <div className={styles.codeEditor}>
       <AceEditor
-        mode={mode}
         theme={theme}
         onChange={(val: string) => {
-          setValue(val);
+          updateEditorValue(lang, val);
         }}
-        name={name}
+        name={mode}
         editorProps={{ $blockScrolling: true }}
         value={value}
         style={{ width: "100%", height: "100%" }}
+        mode={mode}
       />
       <div className={styles.buttonsWrapper}>
         <button onClick={() => prettify(lang, value)}>prettify</button>
@@ -50,3 +54,5 @@ export const Editor = ({ setValue, value, mode, lang, theme, name }: Props) => {
     </div>
   );
 };
+
+export default Editor;
