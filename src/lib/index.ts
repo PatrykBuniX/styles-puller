@@ -36,7 +36,9 @@ const htmlToObject = (htmlString: string): SelectorsObjectsArr => {
   }
   const nodeElement = createElementFromHTML(htmlString);
   const selectorsObjectArr = addSelectors(nodeElement);
+  console.time("merge");
   const merged = mergeDuplicates(selectorsObjectArr);
+  console.timeEnd("merge");
   return merged;
 };
 
@@ -70,21 +72,22 @@ export const htmlStringToScss = (htmlString: string): string => {
 };
 
 function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
-  const newArray: SelectorsObjectsArr = [];
-  arr.forEach((item, i, self) => {
-    const duplicates = self.filter((o) => item.selector === o.selector);
-    //mege duplicated objects
+  return arr.reduce<SelectorsObjectsArr>((acc, curr, i, self) => {
+    if (acc.find((el) => el.selector === curr.selector)) return acc; //if object already merged - skip
+    const duplicates = self.filter((o) => curr.selector === o.selector);
+
+    //merge same selectors children to one array
     const allChildren: SelectorsObjectsArr = [];
     duplicates.forEach((d) => {
       allChildren.push(...d.children);
     });
+
+    //create merged object and merge its children the same way
     const newElement = {
       selector: duplicates[0].selector,
       children: mergeDuplicates(allChildren),
     };
-    if (!newArray.find((el) => el.selector === newElement.selector)) {
-      newArray.push(newElement);
-    }
-  });
-  return newArray;
+    acc.push(newElement);
+    return acc;
+  }, []);
 }
