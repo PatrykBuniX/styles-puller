@@ -10,41 +10,12 @@ const isHTMLElement = (node: ChildNode): node is HTMLElement => {
   );
 };
 
-type SelectorsObject = { [k: string]: any };
-
-const htmlToObject = (htmlString: string): SelectorsObject => {
-  function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObject {
-    return Array.from(nodes).reduce(
-      (acc: SelectorsObject, node: ChildNode, i) => {
-        if (!isHTMLElement(node)) {
-          return acc;
-        }
-        const { classList, tagName } = node;
-
-        const nextField = classList.value
-          ? `${classList.value
-              .split(" ")
-              .map((c) => `.${c}`)
-              .join("")}`
-          : tagName.toLowerCase();
-
-        acc[nextField] = addSelectors(node.childNodes);
-        return acc;
-      },
-      {}
-    );
-  }
-  const nodeElement = createElementFromHTML(htmlString);
-  const selectorsObject = addSelectors(nodeElement);
-  return selectorsObject;
-};
-
 type SelectorsObjectsArr = {
   selector: string;
   children: SelectorsObjectsArr;
 }[];
 
-const htmlToObject2 = (htmlString: string): SelectorsObjectsArr => {
+const htmlToObject = (htmlString: string): SelectorsObjectsArr => {
   function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObjectsArr {
     return Array.from(nodes).reduce<SelectorsObjectsArr>((acc, node) => {
       if (!isHTMLElement(node)) return acc;
@@ -65,34 +36,36 @@ const htmlToObject2 = (htmlString: string): SelectorsObjectsArr => {
   }
   const nodeElement = createElementFromHTML(htmlString);
   const selectorsObjectArr = addSelectors(nodeElement);
-  console.log(selectorsObjectArr);
   const merged = mergeDuplicates(selectorsObjectArr);
-  console.log(merged);
-  return selectorsObjectArr;
+  return merged;
 };
 
-const selectorsObjectToScss = (selectorsObject: SelectorsObject): string => {
-  const getSelectors = (object: any) => {
+const selectorsObjectToScss = (
+  selectorsObjectsArr: SelectorsObjectsArr
+): string => {
+  const getSelectors = (arr: SelectorsObjectsArr) => {
     let currentElement = "";
-    Object.keys(object).forEach((key) => {
-      const keys = key.split(".");
-      keys.shift();
-      if (keys.length > 1) {
-        const childSelectors = getSelectors(object[key]);
-        currentElement += `.${keys[0]}{&.${keys[1]}{${childSelectors}}}`;
+    arr.forEach((item) => {
+      const selectors = item.selector.split(".");
+      selectors.shift();
+      if (selectors.length > 1) {
+        const childSelectors = getSelectors(item.children);
+        currentElement += `.${selectors[0]}{${childSelectors}}`;
+        currentElement += `.${selectors[0]}{&.${selectors[1]}{${childSelectors}}}`;
       } else {
-        const childSelectors = getSelectors(object[key]);
-        currentElement += key + "{" + childSelectors + "}";
+        const childSelectors = getSelectors(item.children);
+        currentElement += item.selector + "{" + childSelectors + "}";
       }
     });
     return currentElement;
   };
-  return getSelectors(selectorsObject);
+  const result = getSelectors(selectorsObjectsArr);
+  console.log(result);
+  return result;
 };
 
 export const htmlStringToScss = (htmlString: string): string => {
   const selectorsObject = htmlToObject(htmlString);
-  htmlToObject2(htmlString);
   return selectorsObjectToScss(selectorsObject);
 };
 
@@ -111,13 +84,12 @@ const testArray = [
   { s: "she", child: [{ s: "she-child", child: [] }] },
 ];
 
-function mergeDuplicates(arr: Array<any>) {
-  const newArray: Array<any> = [];
+function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
+  const newArray: SelectorsObjectsArr = [];
   arr.forEach((item, i, self) => {
     const duplicates = self.filter((o) => item.selector === o.selector);
-    //there are duplicates
-    //todo: mege duplicated objects
-    const allChildren: Array<any> = [];
+    //mege duplicated objects
+    const allChildren: SelectorsObjectsArr = [];
     duplicates.forEach((d) => {
       allChildren.push(...d.children);
     });
@@ -128,7 +100,6 @@ function mergeDuplicates(arr: Array<any>) {
     if (!newArray.find((el) => el.selector === newElement.selector)) {
       newArray.push(newElement);
     }
-    // console.log(merged);
   });
   return newArray;
 }
