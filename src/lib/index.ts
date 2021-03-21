@@ -69,21 +69,6 @@ export const htmlStringToScss = (htmlString: string): string => {
   return selectorsObjectToScss(selectorsObject);
 };
 
-const testArray = [
-  {
-    s: "me",
-    child: [
-      { s: "me-child", child: [{ s: "meme", child: [] }] },
-      { s: "me-child", child: [{ s: "meme2", child: [] }] },
-      { s: "me-child", child: [{ s: "meme3", child: [] }] },
-    ],
-  },
-  { s: "you", child: [{ s: "you-child", child: [] }] },
-  { s: "me", child: [{ s: "me-2nd-child", child: [] }] },
-  { s: "me", child: [{ s: "me-3rd-child", child: [] }] },
-  { s: "she", child: [{ s: "she-child", child: [] }] },
-];
-
 function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
   const newArray: SelectorsObjectsArr = [];
   arr.forEach((item, i, self) => {
