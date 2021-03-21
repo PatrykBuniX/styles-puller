@@ -52,7 +52,6 @@ const selectorsObjectToScss = (
       selectors.shift();
       if (selectors.length > 1) {
         const childSelectors = getSelectors(item.children);
-        currentElement += `.${selectors[0]}{${childSelectors}}`;
         currentElement += `.${selectors[0]}{&.${selectors[1]}{${childSelectors}}}`;
       } else {
         const childSelectors = getSelectors(item.children);
