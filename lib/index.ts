@@ -36,8 +36,7 @@ const htmlToObject = (htmlString: string): SelectorsObjectsArr => {
   }
   const nodeElement = createElementFromHTML(htmlString);
   const selectorsObjectArr = addSelectors(nodeElement);
-  const merged = mergeDuplicates(selectorsObjectArr);
-  return merged;
+  return selectorsObjectArr;
 };
 
 const selectorsObjectToScss = (
@@ -63,8 +62,12 @@ const selectorsObjectToScss = (
 };
 
 export const htmlStringToScss = (htmlString: string): string => {
-  const selectorsObject = htmlToObject(htmlString);
-  return selectorsObjectToScss(selectorsObject);
+  const selectorsObjectArr = htmlToObject(htmlString);
+
+  //TODO:
+  //move modifier class selector inside actual selector
+  const merged = mergeDuplicates(selectorsObjectArr);
+  return selectorsObjectToScss(merged);
 };
 
 function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
