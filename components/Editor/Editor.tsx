@@ -16,12 +16,10 @@ interface Props {
 }
 
 const Editor = ({ updateEditorValue, value, lang, theme, mode }: Props) => {
-  console.log("theme: ", theme);
   const prettify = (lang: "html" | "css", code: string) => {
     updateEditorValue(lang, beautify[lang](code));
   };
   const handleCopyClick = (value: string) => {
-    console.log(value);
     navigator.clipboard.writeText(value).then(
       function () {
         /* success */

@@ -36,9 +36,7 @@ const htmlToObject = (htmlString: string): SelectorsObjectsArr => {
   }
   const nodeElement = createElementFromHTML(htmlString);
   const selectorsObjectArr = addSelectors(nodeElement);
-  console.time("merge");
   const merged = mergeDuplicates(selectorsObjectArr);
-  console.timeEnd("merge");
   return merged;
 };
 
@@ -61,7 +59,6 @@ const selectorsObjectToScss = (
     return currentElement;
   };
   const result = getSelectors(selectorsObjectsArr);
-  console.log(result);
   return result;
 };
 
