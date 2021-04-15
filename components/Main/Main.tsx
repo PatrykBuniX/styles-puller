@@ -9,7 +9,14 @@ const Editor = dynamic(import("../../components/Editor/Editor"), {
   ssr: false,
 });
 
-const exampleCode = `<div class="wrapper"><p class="text">Hello world</p></div>`;
+const exampleCode = `
+<div class="wrapper">
+  <p class="text"><span class="red">hello</span></p>
+  <p class="text"><span class="blue">hello blue!</span></p>
+  <p class="text text--active"><span class="blue">hello blue!</span></p>
+  <p class="text text--active"><span class="red">hello</span></p>
+</div>
+`;
 
 export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);

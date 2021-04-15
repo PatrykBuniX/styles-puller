@@ -12,24 +12,28 @@ const isHTMLElement = (node: ChildNode): node is HTMLElement => {
 
 type SelectorsObjectsArr = {
   selector: string;
+  modifiers: string[];
   children: SelectorsObjectsArr;
 }[];
 
-const htmlToObject = (htmlString: string): SelectorsObjectsArr => {
+const htmlToSelectorsObjectsArr = (htmlString: string): SelectorsObjectsArr => {
   function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObjectsArr {
     return Array.from(nodes).reduce<SelectorsObjectsArr>((acc, node) => {
       if (!isHTMLElement(node)) return acc;
       const { classList, tagName } = node;
-      const selector = classList.value
-        ? `${classList.value
-            .split(" ")
-            .map((c) => `.${c}`)
-            .join("")}`
-        : tagName.toLowerCase();
+
+      let selector = tagName.toLowerCase();
+      let modifiers: string[] = [];
+      if (classList.value) {
+        const classNamesArr = classList.value.split(" ");
+        selector = classNamesArr.shift()!;
+        modifiers = classNamesArr;
+      }
       const children = addSelectors(node.childNodes);
       acc.push({
         selector,
-        children: children ? children : [],
+        modifiers,
+        children,
       });
       return acc;
     }, []);
@@ -45,14 +49,18 @@ const selectorsObjectToScss = (
   const getSelectors = (arr: SelectorsObjectsArr) => {
     let currentElement = "";
     arr.forEach((item) => {
-      const selectors = item.selector.split(".");
-      selectors.shift();
-      if (selectors.length > 1) {
-        const childSelectors = getSelectors(item.children);
-        currentElement += `.${selectors[0]}{&.${selectors[1]}{${childSelectors}}}`;
+      const { selector, modifiers, children } = item;
+      if (modifiers.length > 0) {
+        const childSelectors = getSelectors(children);
+        const modifiersString = modifiers
+          .map((m) => {
+            return `&.${m}{${childSelectors}}`;
+          })
+          .join("");
+        currentElement += `.${selector}{${childSelectors} ${modifiersString}}`;
       } else {
-        const childSelectors = getSelectors(item.children);
-        currentElement += item.selector + "{" + childSelectors + "}";
+        const childSelectors = getSelectors(children);
+        currentElement += `.${selector}{${childSelectors}}`;
       }
     });
     return currentElement;
@@ -62,10 +70,7 @@ const selectorsObjectToScss = (
 };
 
 export const htmlStringToScss = (htmlString: string): string => {
-  const selectorsObjectArr = htmlToObject(htmlString);
-
-  //TODO:
-  //move modifier class selector inside actual selector
+  const selectorsObjectArr = htmlToSelectorsObjectsArr(htmlString);
   const merged = mergeDuplicates(selectorsObjectArr);
   return selectorsObjectToScss(merged);
 };
@@ -81,9 +86,20 @@ function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
       allChildren.push(...d.children);
     });
 
+    //merge all modifiers to one array
+    const allModifiers: string[] = [];
+    duplicates.forEach((d) => {
+      d.modifiers.forEach((m) => {
+        if (!allModifiers.includes(m)) {
+          allModifiers.push(m);
+        }
+      });
+    });
+
     //create merged object and merge its children the same way
     const newElement = {
       selector: duplicates[0].selector,
+      modifiers: allModifiers,
       children: mergeDuplicates(allChildren),
     };
     acc.push(newElement);
