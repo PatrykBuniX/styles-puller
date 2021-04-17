@@ -1,17 +1,51 @@
 .App {
   min-height: 100vh;
-  background-color: var(--cobaltDarkBlue);
-  color: white;
+  background-color: var(--darkGreen);
   display: flex;
   flex-direction: column;
 }
 
 .header {
   display: flex;
-  justify-content: center;
+  padding: 1rem 4rem;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+
+  h1 {
+    font-size: 4rem;
+    line-height: 8rem;
+    letter-spacing: 0.05em;
+  }
+  p {
+    font-size: 1.8rem;
+  }
 }
 
 .main {
-  flex: 1;
   display: flex;
+  padding: 0 4rem;
+  justify-content: center;
+  margin: auto 0;
+}
+
+.convertWrapper {
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+
+  button {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 2rem 5rem;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
 }

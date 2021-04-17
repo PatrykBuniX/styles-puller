@@ -25,7 +25,10 @@ export const Main = () => {
   return (
     <div className={styles.App}>
       <header className={styles.header}>
-        <h1>Styles Puller</h1>
+        <h1>
+          <code>{"<styles> Puller"}</code>
+        </h1>
+        <p>Pull css selectors out off your html code!</p>
       </header>
       <main className={styles.main}>
         <Editor
@@ -35,7 +38,7 @@ export const Main = () => {
           mode={"html"}
           isDarkTheme={true}
         />
-        <div className="convertWrapper">
+        <div className={styles.convertWrapper}>
           <button onClick={handleConvertClick}>convert</button>
         </div>
         <Editor

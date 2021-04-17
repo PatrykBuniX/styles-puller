@@ -6,7 +6,15 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+}
+
 :root {
-  --cobaltBlue: #002240;
-  --cobaltDarkBlue: #001930;
+  --gray: #6f6f6f;
+  --darkGray: #444444;
+  --black: #1e1e1e;
+  --green: #00c896;
+  --darkGreen: #1f725d;
 }

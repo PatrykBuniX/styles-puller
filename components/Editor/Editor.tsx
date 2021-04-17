@@ -38,7 +38,7 @@ const Editor = ({
   return (
     <div className={styles.codeEditor}>
       <MonacoEditor
-        height="80vh"
+        height="100%"
         value={value}
         theme={isDarkTheme ? "vs-dark" : "light"}
         onChange={handleEditorChange}
