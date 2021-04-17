@@ -1,24 +1,71 @@
 .App {
   min-height: 100vh;
-  background-color: var(--darkGreen);
+  background-color: var(--primary);
+  transition: background-color 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
 }
 
+.lightTheme {
+  --primary: #edeeff;
+  --secondary: #8792e8;
+  --text: var(--black);
+}
+
 .header {
-  display: flex;
   padding: 1rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.headerLogo {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
-
+  color: var(--text);
+  transition: color 0.2s ease-in-out;
   h1 {
     font-size: 4rem;
     line-height: 8rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    code {
+      padding: 0 1rem;
+      background-color: var(--secondary);
+      border: 2px solid black;
+    }
   }
   p {
     font-size: 1.8rem;
+
+    strong {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 1rem;
+      background-color: var(--secondary);
+      border: 2px solid black;
+    }
+  }
+}
+.toggleThemeButton {
+  position: absolute;
+  right: 4rem;
+
+  button {
+    color: var(--text);
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 1rem;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    border: 2px solid black;
+
+    &:hover {
+      background-color: var(--secondary);
+    }
   }
 }
 
@@ -35,17 +82,19 @@
   align-items: center;
 
   button {
-    color: white;
-    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text);
+    background: none;
     border: none;
     padding: 2rem 5rem;
     text-transform: uppercase;
     font-size: 1.8rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    border: 2px solid black;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: var(--secondary);
     }
   }
 }

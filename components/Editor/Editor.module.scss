@@ -1,18 +1,19 @@
 .buttonsWrapper {
   display: flex;
   button {
-    color: white;
-    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text);
     border: none;
+    background: none;
     padding: 2rem 5rem;
     text-transform: uppercase;
     font-size: 1.8rem;
     cursor: pointer;
     margin: 1rem;
-    transition: background-color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    border: 2px solid black;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: var(--secondary);
     }
   }
 }

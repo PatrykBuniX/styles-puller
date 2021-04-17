@@ -8,13 +8,19 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+
+button,
+input {
+  font-family: "Montserrat", sans-serif;
 }
 
 :root {
   --gray: #6f6f6f;
   --darkGray: #444444;
   --black: #1e1e1e;
-  --green: #00c896;
-  --darkGreen: #1f725d;
+  --primary: #6472c4;
+  --secondary: #4f60b0;
+  --text: white;
 }
