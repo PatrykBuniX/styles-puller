@@ -1,52 +1,52 @@
 import beautify from "js-beautify";
 import styles from "./Editor.module.scss";
-//react ace editor
-import AceEditor from "react-ace";
-import "brace/mode/html";
-import "brace/mode/scss";
-import "brace/theme/cobalt";
+// import dynamic from "next/dynamic";
+import MonacoEditor from "@monaco-editor/react";
 
-//codemirror
 interface Props {
-  updateEditorValue: (lang: string, value: string) => void;
+  updateEditorValue: (value: string) => void;
   value: any;
   lang: "html" | "css";
   mode: string;
-  theme: string;
+  isDarkTheme: boolean;
 }
 
-const Editor = ({ updateEditorValue, value, lang, theme, mode }: Props) => {
-  const prettify = (lang: "html" | "css", code: string) => {
-    updateEditorValue(lang, beautify[lang](code));
+const Editor = ({
+  value,
+  updateEditorValue,
+  lang,
+  mode,
+  isDarkTheme,
+}: Props) => {
+  const prettify = (code: string) => {
+    updateEditorValue(beautify[lang](code));
   };
   const handleCopyClick = (value: string) => {
     navigator.clipboard.writeText(value).then(
       function () {
-        /* success */
         alert("coppied to clipboard");
       },
       function (err) {
-        /* failure */
         alert("err: " + err);
       }
     );
   };
+  const handleEditorChange = (value: string | undefined) => {
+    value && updateEditorValue(value);
+  };
 
   return (
     <div className={styles.codeEditor}>
-      <AceEditor
-        theme={theme}
-        onChange={(val: string) => {
-          updateEditorValue(lang, val);
-        }}
-        name={mode}
-        editorProps={{ $blockScrolling: true }}
+      <MonacoEditor
+        height="80vh"
         value={value}
-        style={{ width: "100%", height: "100%" }}
-        mode={mode}
+        theme={isDarkTheme ? "vs-dark" : "light"}
+        onChange={handleEditorChange}
+        language={mode}
+        loading={<p>Editor is loading...</p>}
       />
       <div className={styles.buttonsWrapper}>
-        <button onClick={() => prettify(lang, value)}>prettify</button>
+        <button onClick={() => prettify(value)}>prettify</button>
         <button onClick={() => handleCopyClick(value)}>copy</button>
       </div>
     </div>

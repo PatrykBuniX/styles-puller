@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "brace": "^0.11.1",
+    "@monaco-editor/react": "^4.1.1",
     "clsx": "^1.1.1",
     "js-beautify": "^1.13.5",
     "next": "^10.0.9",
     "react": "^17.0.1",
-    "react-ace": "^9.3.0",
     "react-dom": "^17.0.1",
     "sass": "^1.32.8"
   },

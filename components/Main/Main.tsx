@@ -2,21 +2,14 @@ import { useState } from "react";
 import beautify from "js-beautify";
 import { htmlStringToScss } from "../../lib/";
 import styles from "./Main.module.scss";
+import Editor from "../Editor/Editor";
 
-import dynamic from "next/dynamic";
-//import Editor dynamicly because it uses window object uder the hood
-const Editor = dynamic(import("../../components/Editor/Editor"), {
-  ssr: false,
-});
-
-const exampleCode = `
-<div class="wrapper">
+const exampleCode = `<div class="wrapper">
   <p class="text"><span class="red">hello</span></p>
   <p class="text"><span class="blue">hello blue!</span></p>
   <p class="text text--active"><span class="blue">hello blue!</span></p>
   <p class="text text--active"><span class="red">hello</span></p>
-</div>
-`;
+</div>`;
 
 export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);
@@ -29,14 +22,6 @@ export const Main = () => {
     setCssString(beautify.css(css));
   };
 
-  const updateEditorValue = (lang: string, value: string) => {
-    if (lang === "html") {
-      setHtmlString(value);
-    } else if (lang === "css") {
-      setCssString(value);
-    }
-  };
-
   return (
     <div className={styles.App}>
       <header className={styles.header}>
@@ -45,20 +30,20 @@ export const Main = () => {
       <main className={styles.main}>
         <Editor
           value={htmlString}
-          updateEditorValue={updateEditorValue}
+          updateEditorValue={(v) => setHtmlString(v)}
           lang={"html"}
           mode={"html"}
-          theme={"cobalt"}
+          isDarkTheme={true}
         />
         <div className="convertWrapper">
           <button onClick={handleConvertClick}>convert</button>
         </div>
         <Editor
           value={cssString}
-          updateEditorValue={updateEditorValue}
+          updateEditorValue={(v) => setCssString(v)}
           lang={"css"}
           mode={"scss"}
-          theme={"cobalt"}
+          isDarkTheme={true}
         />
       </main>
     </div>
