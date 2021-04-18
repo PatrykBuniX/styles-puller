@@ -44,6 +44,9 @@ const Editor = ({
         onChange={handleEditorChange}
         language={mode}
         loading={<p>Editor is loading...</p>}
+        options={{
+          minimap: { enabled: false },
+        }}
       />
       <div className={styles.buttonsWrapper}>
         <button onClick={() => prettify(value)}>prettify</button>
