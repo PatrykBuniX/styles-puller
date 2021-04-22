@@ -25,7 +25,10 @@ const htmlToSelectorsObjectsArr = (htmlString: string): SelectorsObjectsArr => {
       let selector = tagName.toLowerCase();
       let modifiers: string[] = [];
       if (classList.value) {
-        const classNamesArr = classList.value.split(" ");
+        const classNamesArr = classList.value
+          .split(" ")
+          .filter((v) => !!v)
+          .map((v) => `.${v}`);
         selector = classNamesArr.shift()!;
         modifiers = classNamesArr;
       }
@@ -54,13 +57,13 @@ const selectorsObjectToScss = (
         const childSelectors = getSelectors(children);
         const modifiersString = modifiers
           .map((m) => {
-            return `&.${m}{${childSelectors}}`;
+            return `&${m}{${childSelectors}}`;
           })
           .join("");
-        currentElement += `.${selector}{${childSelectors} ${modifiersString}}`;
+        currentElement += `${selector}{${childSelectors} ${modifiersString}}`;
       } else {
         const childSelectors = getSelectors(children);
-        currentElement += `.${selector}{${childSelectors}}`;
+        currentElement += `${selector}{${childSelectors}}`;
       }
     });
     return currentElement;
