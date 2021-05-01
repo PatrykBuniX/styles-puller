@@ -1,7 +1,7 @@
 import beautify from "js-beautify";
 import styles from "./Editor.module.scss";
-// import dynamic from "next/dynamic";
 import MonacoEditor from "@monaco-editor/react";
+import { useState } from "react";
 
 interface Props {
   updateEditorValue: (value: string) => void;
@@ -18,19 +18,22 @@ const Editor = ({
   mode,
   isDarkTheme,
 }: Props) => {
+  const [isCopiedActive, setIsCopiedActive] = useState(false);
+
   const prettify = (code: string) => {
     updateEditorValue(beautify[lang](code));
   };
+
   const handleCopyClick = (value: string) => {
-    navigator.clipboard.writeText(value).then(
-      function () {
-        alert("coppied to clipboard");
-      },
-      function (err) {
-        alert("err: " + err);
-      }
-    );
+    navigator.clipboard.writeText(value).then(() => {
+      if (isCopiedActive) return;
+      setIsCopiedActive(true);
+      setTimeout(() => {
+        setIsCopiedActive(false);
+      }, 500);
+    });
   };
+
   const handleEditorChange = (value: string | undefined) => {
     value && updateEditorValue(value);
   };
@@ -50,7 +53,12 @@ const Editor = ({
       />
       <div className={styles.buttonsWrapper}>
         <button onClick={() => prettify(value)}>prettify</button>
-        <button onClick={() => handleCopyClick(value)}>copy</button>
+        <button
+          onClick={() => handleCopyClick(value)}
+          dangerouslySetInnerHTML={{
+            __html: isCopiedActive ? "copied&nbsp;&check;" : "copy",
+          }}
+        ></button>
       </div>
     </div>
   );
