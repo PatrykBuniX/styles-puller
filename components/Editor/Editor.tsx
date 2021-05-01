@@ -5,7 +5,7 @@ import { useState } from "react";
 
 interface Props {
   updateEditorValue: (value: string) => void;
-  value: any;
+  value: string;
   lang: "html" | "css";
   mode: string;
   isDarkTheme: boolean;
@@ -20,11 +20,11 @@ const Editor = ({
 }: Props) => {
   const [isCopiedActive, setIsCopiedActive] = useState(false);
 
-  const prettify = (code: string) => {
-    updateEditorValue(beautify[lang](code));
+  const prettify = () => {
+    updateEditorValue(beautify[lang](value));
   };
 
-  const handleCopyClick = (value: string) => {
+  const handleCopyClick = () => {
     navigator.clipboard.writeText(value).then(() => {
       if (isCopiedActive) return;
       setIsCopiedActive(true);
@@ -52,9 +52,9 @@ const Editor = ({
         }}
       />
       <div className={styles.buttonsWrapper}>
-        <button onClick={() => prettify(value)}>prettify</button>
+        <button onClick={prettify}>prettify</button>
         <button
-          onClick={() => handleCopyClick(value)}
+          onClick={handleCopyClick}
           dangerouslySetInnerHTML={{
             __html: isCopiedActive ? "copied&nbsp;&check;" : "copy",
           }}
