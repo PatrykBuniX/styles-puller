@@ -2,7 +2,7 @@ import beautify from "js-beautify";
 import styles from "./Editor.module.scss";
 import MonacoEditor from "@monaco-editor/react";
 import { useState } from "react";
-import Loading from "../Loading/Loading";
+import { Loading } from "../Loading/Loading";
 
 interface Props {
   updateEditorValue: (value: string) => void;
@@ -12,7 +12,7 @@ interface Props {
   isDarkTheme: boolean;
 }
 
-const Editor = ({
+export const Editor = ({
   value,
   updateEditorValue,
   lang,
@@ -64,5 +64,3 @@ const Editor = ({
     </div>
   );
 };
-
-export default Editor;

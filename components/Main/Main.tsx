@@ -2,7 +2,7 @@ import { useState } from "react";
 import beautify from "js-beautify";
 import { htmlStringToScss } from "../../lib/";
 import styles from "./Main.module.scss";
-import Editor from "../Editor/Editor";
+import { Editor } from "../Editor/Editor";
 import clsx from "clsx";
 
 const exampleCode = `<div class="wrapper">
