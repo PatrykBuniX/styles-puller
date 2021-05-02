@@ -1,9 +1,10 @@
 import { useState } from "react";
 import beautify from "js-beautify";
-import { htmlStringToScss } from "../../lib/";
+import { htmlStringToScss, HtmlStringToScssOptions } from "../../lib/";
 import styles from "./Main.module.scss";
 import { Editor } from "../Editor/Editor";
 import clsx from "clsx";
+import { OptionsMenu } from "../OptionsMenu/OptionsMenu";
 
 const exampleCode = `<div class="wrapper">
   <p class="text"><span class="red">hello</span></p>
@@ -15,12 +16,17 @@ const exampleCode = `<div class="wrapper">
 export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);
   const [cssString, setCssString] = useState("");
+  const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [
+    conversionOptions,
+    setConversionOptions,
+  ] = useState<HtmlStringToScssOptions>({
+    includeModifiers: true,
+  });
 
-  const handleConvertClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    const css = htmlStringToScss(htmlString);
+  const handleConvertClick = () => {
+    const css = htmlStringToScss(htmlString, conversionOptions);
     setCssString(beautify.css(css));
   };
 
@@ -54,8 +60,16 @@ export const Main = () => {
           mode={"html"}
           isDarkTheme={isDarkTheme}
         />
-        <div className={styles.convertWrapper}>
-          <button onClick={handleConvertClick}>convert</button>
+        <div className={styles.menuWrapper}>
+          <button className={styles.convertButton} onClick={handleConvertClick}>
+            convert
+          </button>
+          <button
+            className={styles.optionsButton}
+            onClick={() => setIsOptionsMenuOpen(true)}
+          >
+            options
+          </button>
         </div>
         <Editor
           value={cssString}
@@ -65,6 +79,13 @@ export const Main = () => {
           isDarkTheme={isDarkTheme}
         />
       </main>
+      {isOptionsMenuOpen && (
+        <OptionsMenu
+          handleMenuClose={() => setIsOptionsMenuOpen(false)}
+          setConversionOptions={setConversionOptions}
+          options={conversionOptions}
+        />
+      )}
     </div>
   );
 };

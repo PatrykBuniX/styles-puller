@@ -77,7 +77,7 @@ const selectorsObjectToScss = (
   return result;
 };
 
-type HtmlStringToScssOptions = { includeModifiers: boolean };
+export type HtmlStringToScssOptions = { includeModifiers: boolean };
 const htmlStringToScssOptionsDefaults = { includeModifiers: true };
 
 export const htmlStringToScss = (
