@@ -46,14 +46,19 @@ const htmlToSelectorsObjectsArr = (htmlString: string): SelectorsObjectsArr => {
   return selectorsObjectArr;
 };
 
+type SelectorsObjectToScssOptions = {
+  includeModifiers: boolean;
+};
+
 const selectorsObjectToScss = (
-  selectorsObjectsArr: SelectorsObjectsArr
+  selectorsObjectsArr: SelectorsObjectsArr,
+  options: SelectorsObjectToScssOptions
 ): string => {
   const getSelectors = (arr: SelectorsObjectsArr) => {
     let currentElement = "";
     arr.forEach((item) => {
       const { selector, modifiers, children } = item;
-      if (modifiers.length > 0) {
+      if (options.includeModifiers && modifiers.length > 0) {
         const childSelectors = getSelectors(children);
         const modifiersString = modifiers
           .map((m) => {
@@ -75,7 +80,7 @@ const selectorsObjectToScss = (
 export const htmlStringToScss = (htmlString: string): string => {
   const selectorsObjectArr = htmlToSelectorsObjectsArr(htmlString);
   const merged = mergeDuplicates(selectorsObjectArr);
-  return selectorsObjectToScss(merged);
+  return selectorsObjectToScss(merged, { includeModifiers: false });
 };
 
 function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
