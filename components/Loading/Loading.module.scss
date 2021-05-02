@@ -1,0 +1,29 @@
+@keyframes pulse {
+  from {
+    transform: translateY(0em);
+  }
+  to {
+    transform: translateY(1.75em);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    height: 2.5rem;
+    width: 2.5rem;
+    background: var(--secondary);
+    border-radius: 50%;
+    animation: pulse 0.25s infinite alternate;
+    &:nth-child(2) {
+      margin: 0 1rem;
+      animation-delay: 0.125s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.25s;
+    }
+  }
+}

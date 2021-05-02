@@ -2,6 +2,7 @@ import beautify from "js-beautify";
 import styles from "./Editor.module.scss";
 import MonacoEditor from "@monaco-editor/react";
 import { useState } from "react";
+import Loading from "../Loading/Loading";
 
 interface Props {
   updateEditorValue: (value: string) => void;
@@ -46,7 +47,7 @@ const Editor = ({
         theme={isDarkTheme ? "vs-dark" : "light"}
         onChange={handleEditorChange}
         language={mode}
-        loading={<p>Editor is loading...</p>}
+        loading={<Loading />}
         options={{
           minimap: { enabled: false },
         }}
