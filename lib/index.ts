@@ -77,6 +77,34 @@ const selectorsObjectToScss = (
   return result;
 };
 
+const selectorsObjectToCss = (
+  selectorsObjectsArr: SelectorsObjectsArr,
+  { includeModifiers }: SelectorsObjectToScssOptions
+): any => {
+  const getSelectors = (arr: SelectorsObjectsArr, currentElement: string) => {
+    let cssString = "";
+    arr.forEach((element) => {
+      const { selector, children, modifiers } = element;
+      if (includeModifiers && modifiers.length > 0) {
+        cssString += `${currentElement}${selector}{}`;
+        cssString += getSelectors(children, `${currentElement}${selector}>`);
+        modifiers.forEach((modifier) => {
+          cssString += `${currentElement}${selector}${modifier}{}`;
+          cssString += getSelectors(
+            children,
+            `${currentElement}${selector}${modifier}>`
+          );
+        });
+      } else {
+        cssString += `${currentElement}${selector}{}`;
+        cssString += getSelectors(children, `${currentElement}${selector}>`);
+      }
+    });
+    return cssString;
+  };
+  return getSelectors(selectorsObjectsArr, "");
+};
+
 export type HtmlStringToScssOptions = { includeModifiers: boolean };
 const htmlStringToScssOptionsDefaults = { includeModifiers: true };
 
