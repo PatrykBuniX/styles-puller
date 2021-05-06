@@ -76,7 +76,7 @@ export const Main = () => {
           value={cssString}
           updateEditorValue={(v) => setCssString(v)}
           lang={"css"}
-          mode={"scss"}
+          mode={conversionOptions.mode}
           isDarkTheme={isDarkTheme}
         />
       </main>
