@@ -1,11 +1,11 @@
 import styles from "./OptionsMenu.module.scss";
-import { HtmlStringToScssOptions } from "../../lib/";
+import { HtmlStringToStylesOptions } from "../../lib/";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  options: HtmlStringToScssOptions;
+  options: HtmlStringToStylesOptions;
   handleMenuClose: () => void;
-  setConversionOptions: Dispatch<SetStateAction<HtmlStringToScssOptions>>;
+  setConversionOptions: Dispatch<SetStateAction<HtmlStringToStylesOptions>>;
 };
 
 export const OptionsMenu = ({
@@ -19,13 +19,21 @@ export const OptionsMenu = ({
     }
   };
 
-  const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked, type } = e.target;
-    const newOptions = {
-      ...options,
-      [name]: type === "checkbox" ? checked : value,
-    };
-    setConversionOptions(newOptions);
+  const handleOptionChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    if (type === "checkbox") {
+      setConversionOptions({
+        ...options,
+        [name]: (e.target as HTMLInputElement).checked,
+      });
+    } else {
+      setConversionOptions({
+        ...options,
+        [name]: value,
+      });
+    }
   };
 
   return (
@@ -50,6 +58,18 @@ export const OptionsMenu = ({
           <label htmlFor="includeModifiers">
             Include modifier class names.
           </label>
+        </div>
+        <div className={styles.option}>
+          <label htmlFor="mode">conversion mode: </label>
+          <select
+            onChange={handleOptionChange}
+            name="mode"
+            id="mode"
+            value={options.mode}
+          >
+            <option value="scss">scss</option>
+            <option value="css">css</option>
+          </select>
         </div>
       </div>
     </div>
