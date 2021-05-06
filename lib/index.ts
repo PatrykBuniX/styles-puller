@@ -77,9 +77,13 @@ const selectorsObjectToScss = (
   return result;
 };
 
+type SelectorsObjectToCssOptions = {
+  includeModifiers: boolean;
+};
+
 const selectorsObjectToCss = (
   selectorsObjectsArr: SelectorsObjectsArr,
-  { includeModifiers }: SelectorsObjectToScssOptions
+  { includeModifiers }: SelectorsObjectToCssOptions
 ): any => {
   const getSelectors = (arr: SelectorsObjectsArr, currentElement: string) => {
     let cssString = "";
