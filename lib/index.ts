@@ -105,18 +105,34 @@ const selectorsObjectToCss = (
   return getSelectors(selectorsObjectsArr, "");
 };
 
-export type HtmlStringToScssOptions = { includeModifiers: boolean };
-const htmlStringToScssOptionsDefaults = { includeModifiers: true };
+export type HtmlStringToStylesOptions = {
+  includeModifiers: boolean;
+  mode: "css" | "scss";
+};
+const htmlStringToStylesOptionsDefaults = {
+  includeModifiers: true,
+  mode: "scss" as const,
+};
 
-export const htmlStringToScss = (
+export const htmlStringToStyles = (
   htmlString: string,
   {
     includeModifiers,
-  }: HtmlStringToScssOptions = htmlStringToScssOptionsDefaults
+    mode,
+  }: HtmlStringToStylesOptions = htmlStringToStylesOptionsDefaults
 ): string => {
   const selectorsObjectArr = htmlToSelectorsObjectsArr(htmlString);
   const merged = mergeDuplicates(selectorsObjectArr);
-  return selectorsObjectToScss(merged, { includeModifiers });
+  switch (mode) {
+    case "scss":
+      return selectorsObjectToScss(merged, { includeModifiers });
+
+    case "css":
+      return selectorsObjectToCss(merged, { includeModifiers });
+
+    default:
+      throw new Error(`Mode ${mode} is not supported!`);
+  }
 };
 
 function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {

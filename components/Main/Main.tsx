@@ -1,6 +1,6 @@
 import { useState } from "react";
 import beautify from "js-beautify";
-import { htmlStringToScss, HtmlStringToScssOptions } from "../../lib/";
+import { htmlStringToStyles, HtmlStringToStylesOptions } from "../../lib/";
 import styles from "./Main.module.scss";
 import { Editor } from "../Editor/Editor";
 import clsx from "clsx";
@@ -21,12 +21,13 @@ export const Main = () => {
   const [
     conversionOptions,
     setConversionOptions,
-  ] = useState<HtmlStringToScssOptions>({
+  ] = useState<HtmlStringToStylesOptions>({
     includeModifiers: true,
+    mode: "scss",
   });
 
   const handleConvertClick = () => {
-    const css = htmlStringToScss(htmlString, conversionOptions);
+    const css = htmlStringToStyles(htmlString, conversionOptions);
     setCssString(beautify.css(css));
   };
 
