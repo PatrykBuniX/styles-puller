@@ -16,7 +16,9 @@ type SelectorsObjectsArr = {
   children: SelectorsObjectsArr;
 }[];
 
-export const htmlToSelectorsObjectsArr = (htmlString: string): SelectorsObjectsArr => {
+export const htmlToSelectorsObjectsArr = (
+  htmlString: string
+): SelectorsObjectsArr => {
   function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObjectsArr {
     return Array.from(nodes).reduce<SelectorsObjectsArr>((acc, node) => {
       if (!isHTMLElement(node)) return acc;
@@ -139,7 +141,9 @@ export const htmlStringToStyles = (
   }
 };
 
-function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
+export const mergeDuplicates = (
+  arr: SelectorsObjectsArr
+): SelectorsObjectsArr => {
   return arr.reduce<SelectorsObjectsArr>((acc, curr, i, self) => {
     if (acc.find((el) => el.selector === curr.selector)) return acc; //if object already merged - skip
     const duplicates = self.filter((o) => curr.selector === o.selector);
@@ -169,4 +173,4 @@ function mergeDuplicates(arr: SelectorsObjectsArr): SelectorsObjectsArr {
     acc.push(newElement);
     return acc;
   }, []);
-}
+};
