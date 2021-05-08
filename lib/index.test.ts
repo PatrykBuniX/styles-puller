@@ -176,6 +176,26 @@ describe("htmlToSelectorsObjectsArr", () => {
     ]);
   });
 
+  test("Multiple modifiers (additional classNames)", () => {
+    expect(
+      htmlToSelectorsObjectsArr(`<div class="wrapper">
+      <p class="text text--active text--fixed"></p>
+    </div>`)
+    ).toStrictEqual([
+      {
+        selector: ".wrapper",
+        modifiers: [],
+        children: [
+          {
+            selector: ".text",
+            modifiers: [".text--active", ".text--fixed"],
+            children: [],
+          },
+        ],
+      },
+    ]);
+  });
+
   test("Same selectors children with modifiers", () => {
     expect(
       htmlToSelectorsObjectsArr(`<div class="wrapper">
