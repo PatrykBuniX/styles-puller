@@ -16,7 +16,7 @@ type SelectorsObjectsArr = {
   children: SelectorsObjectsArr;
 }[];
 
-const htmlToSelectorsObjectsArr = (htmlString: string): SelectorsObjectsArr => {
+export const htmlToSelectorsObjectsArr = (htmlString: string): SelectorsObjectsArr => {
   function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObjectsArr {
     return Array.from(nodes).reduce<SelectorsObjectsArr>((acc, node) => {
       if (!isHTMLElement(node)) return acc;
