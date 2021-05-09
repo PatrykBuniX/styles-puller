@@ -52,7 +52,7 @@ type SelectorsObjectToScssOptions = {
   includeModifiers: boolean;
 };
 
-const selectorsObjectToScss = (
+export const selectorsObjectToScss = (
   selectorsObjectsArr: SelectorsObjectsArr,
   { includeModifiers }: SelectorsObjectToScssOptions
 ): string => {
@@ -67,7 +67,7 @@ const selectorsObjectToScss = (
             return `&${m}{${childSelectors}}`;
           })
           .join("");
-        currentElement += `${selector}{${childSelectors} ${modifiersString}}`;
+        currentElement += `${selector}{${childSelectors}${modifiersString}}`;
       } else {
         const childSelectors = getSelectors(children);
         currentElement += `${selector}{${childSelectors}}`;
