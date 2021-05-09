@@ -83,7 +83,7 @@ type SelectorsObjectToCssOptions = {
   includeModifiers: boolean;
 };
 
-const selectorsObjectToCss = (
+export const selectorsObjectToCss = (
   selectorsObjectsArr: SelectorsObjectsArr,
   { includeModifiers }: SelectorsObjectToCssOptions
 ): any => {
