@@ -1,17 +1,16 @@
 import styles from "./OptionsMenu.module.scss";
 import { HtmlStringToStylesOptions } from "../../lib/";
-import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   options: HtmlStringToStylesOptions;
   handleMenuClose: () => void;
-  setConversionOptions: Dispatch<SetStateAction<HtmlStringToStylesOptions>>;
+  handleConvertionOptionsChange: (options: HtmlStringToStylesOptions) => void;
 };
 
 export const OptionsMenu = ({
   options,
   handleMenuClose,
-  setConversionOptions,
+  handleConvertionOptionsChange,
 }: Props) => {
   const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -24,12 +23,12 @@ export const OptionsMenu = ({
   ) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
-      setConversionOptions({
+      handleConvertionOptionsChange({
         ...options,
         [name]: (e.target as HTMLInputElement).checked,
       });
     } else {
-      setConversionOptions({
+      handleConvertionOptionsChange({
         ...options,
         [name]: value,
       });

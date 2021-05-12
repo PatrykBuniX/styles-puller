@@ -18,13 +18,11 @@ export const Main = () => {
   const [cssString, setCssString] = useState("");
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [
-    conversionOptions,
-    setConversionOptions,
-  ] = useState<HtmlStringToStylesOptions>({
-    includeModifiers: true,
-    mode: "scss",
-  });
+  const [conversionOptions, setConversionOptions] =
+    useState<HtmlStringToStylesOptions>({
+      includeModifiers: true,
+      mode: "scss",
+    });
 
   const handleConvertClick = () => {
     const css = htmlStringToStyles(htmlString, conversionOptions);
@@ -33,6 +31,14 @@ export const Main = () => {
 
   const handleToggleTheme = () => {
     setIsDarkTheme((prev) => !prev);
+  };
+
+  const handleConvertionOptionsChange = (
+    options: HtmlStringToStylesOptions
+  ) => {
+    const css = htmlStringToStyles(htmlString, options);
+    setCssString(beautify.css(css));
+    setConversionOptions(options);
   };
 
   return (
@@ -83,7 +89,7 @@ export const Main = () => {
       {isOptionsMenuOpen && (
         <OptionsMenu
           handleMenuClose={() => setIsOptionsMenuOpen(false)}
-          setConversionOptions={setConversionOptions}
+          handleConvertionOptionsChange={handleConvertionOptionsChange}
           options={conversionOptions}
         />
       )}
