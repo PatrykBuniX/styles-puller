@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import beautify from "js-beautify";
 import { htmlStringToStyles, HtmlStringToStylesOptions } from "../../lib/";
 import styles from "./Main.module.scss";
@@ -13,6 +13,8 @@ const exampleCode = `<div class="wrapper">
   <p class="text text--active"><span class="red">hello</span></p>
 </div>`;
 
+const lsOptionsItem = "convertionOptions";
+
 export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);
   const [cssString, setCssString] = useState("");
@@ -24,6 +26,13 @@ export const Main = () => {
       mode: "scss",
       tagNamesOnly: false,
     });
+
+  useEffect(() => {
+    const usersOptions = localStorage.getItem(lsOptionsItem);
+    if (usersOptions) {
+      setConversionOptions(JSON.parse(usersOptions));
+    }
+  }, []);
 
   const handleConvertClick = () => {
     const css = htmlStringToStyles(htmlString, conversionOptions);
@@ -40,6 +49,7 @@ export const Main = () => {
     const css = htmlStringToStyles(htmlString, options);
     setCssString(beautify.css(css));
     setConversionOptions(options);
+    localStorage.setItem(lsOptionsItem, JSON.stringify(options));
   };
 
   return (
