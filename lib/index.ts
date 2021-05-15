@@ -1,12 +1,12 @@
-import { htmlToSelectorsObjectsArr } from "./htmlToSelectorsObjectsArr";
-import { selectorsObjectToScss } from "./selectorsObjectToScss";
-import { selectorsObjectToCss } from "./selectorsObjectToCss";
+import { htmlToElementsArr } from "./htmlToElementsArr";
+import { elementsArrToScss } from "./elementsArrToScss";
+import { elementsArrToCss } from "./elementsArrToCss";
 import { mergeDuplicates } from "./mergeDuplicates";
 
-export type SelectorsObjectsArr = {
+export type ElementsArr = {
   selector: string;
   modifiers: string[];
-  children: SelectorsObjectsArr;
+  children: ElementsArr;
 }[];
 
 export type HtmlStringToStylesOptions = {
@@ -25,14 +25,14 @@ export const htmlStringToStyles = (
     mode,
   }: HtmlStringToStylesOptions = htmlStringToStylesOptionsDefaults
 ): string => {
-  const selectorsObjectArr = htmlToSelectorsObjectsArr(htmlString);
-  const merged = mergeDuplicates(selectorsObjectArr);
+  const elementsArr = htmlToElementsArr(htmlString);
+  const mergedElementsArr = mergeDuplicates(elementsArr);
   switch (mode) {
     case "scss":
-      return selectorsObjectToScss(merged, { includeModifiers });
+      return elementsArrToScss(mergedElementsArr, { includeModifiers });
 
     case "css":
-      return selectorsObjectToCss(merged, { includeModifiers });
+      return elementsArrToCss(mergedElementsArr, { includeModifiers });
 
     default:
       throw new Error(`Mode ${mode} is not supported!`);

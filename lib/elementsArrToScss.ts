@@ -1,14 +1,14 @@
-import { SelectorsObjectsArr } from "./index";
+import { ElementsArr } from "./index";
 
-type SelectorsObjectToScssOptions = {
+type ElementsArrToScssOptions = {
   includeModifiers: boolean;
 };
 
-export const selectorsObjectToScss = (
-  selectorsObjectsArr: SelectorsObjectsArr,
-  { includeModifiers }: SelectorsObjectToScssOptions
+export const elementsArrToScss = (
+  elementsArr: ElementsArr,
+  { includeModifiers }: ElementsArrToScssOptions
 ): string => {
-  const getSelectors = (arr: SelectorsObjectsArr) => {
+  const getSelectors = (arr: ElementsArr) => {
     let currentElement = "";
     arr.forEach((item) => {
       const { selector, modifiers, children } = item;
@@ -27,6 +27,6 @@ export const selectorsObjectToScss = (
     });
     return currentElement;
   };
-  const result = getSelectors(selectorsObjectsArr);
+  const result = getSelectors(elementsArr);
   return result;
 };

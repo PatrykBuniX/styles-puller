@@ -1,18 +1,17 @@
-import { selectorsObjectToScss } from "../selectorsObjectToScss";
+import { elementsArrToScss } from "../elementsArrToScss";
 
-describe("selectorsObjectToScss", () => {
+describe("elementsArrToScss", () => {
   test("Single element selector", () => {
     expect(
-      selectorsObjectToScss(
-        [{ selector: "div", modifiers: [], children: [] }],
-        { includeModifiers: false }
-      )
+      elementsArrToScss([{ selector: "div", modifiers: [], children: [] }], {
+        includeModifiers: false,
+      })
     ).toEqual("div{}");
   });
 
   test("Single element selector modifier classNames WITH includeModifiers option", () => {
     expect(
-      selectorsObjectToScss(
+      elementsArrToScss(
         [
           {
             selector: ".box",
@@ -27,7 +26,7 @@ describe("selectorsObjectToScss", () => {
 
   test("Single element selector modifier classNames WITHOUT includeModifiers option", () => {
     expect(
-      selectorsObjectToScss(
+      elementsArrToScss(
         [
           {
             selector: ".box",
@@ -42,7 +41,7 @@ describe("selectorsObjectToScss", () => {
 
   test("Element with nested children and WITH includeModifiers option", () => {
     expect(
-      selectorsObjectToScss(
+      elementsArrToScss(
         [
           {
             selector: ".box",
@@ -70,7 +69,7 @@ describe("selectorsObjectToScss", () => {
 
   test("Element with nested children and WITHOUT includeModifiers option", () => {
     expect(
-      selectorsObjectToScss(
+      elementsArrToScss(
         [
           {
             selector: ".box",
@@ -96,7 +95,7 @@ describe("selectorsObjectToScss", () => {
 
   test("Real life example - navbar menu WITH includeModifiers option", () => {
     expect(
-      selectorsObjectToScss(
+      elementsArrToScss(
         [
           {
             selector: ".navbar",
@@ -182,7 +181,7 @@ describe("selectorsObjectToScss", () => {
 
   test("Real life example - navbar menu WITHOUT includeModifiers option", () => {
     expect(
-      selectorsObjectToScss(
+      elementsArrToScss(
         [
           {
             selector: ".navbar",

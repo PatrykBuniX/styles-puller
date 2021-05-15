@@ -1,9 +1,9 @@
-import { selectorsObjectToCss } from "../selectorsObjectToCss";
+import { elementsArrToCss } from "../elementsArrToCss";
 
-describe("selectorsObjectToCss", () => {
+describe("elementsArrToCss", () => {
   test("Single element selector", () => {
     expect(
-      selectorsObjectToCss([{ selector: "div", modifiers: [], children: [] }], {
+      elementsArrToCss([{ selector: "div", modifiers: [], children: [] }], {
         includeModifiers: false,
       })
     ).toEqual("div{}");
@@ -11,7 +11,7 @@ describe("selectorsObjectToCss", () => {
 
   test("Single element selector modifier classNames WITH includeModifiers option", () => {
     expect(
-      selectorsObjectToCss(
+      elementsArrToCss(
         [
           {
             selector: ".box",
@@ -26,7 +26,7 @@ describe("selectorsObjectToCss", () => {
 
   test("Single element selector modifier classNames WITHOUT includeModifiers option", () => {
     expect(
-      selectorsObjectToCss(
+      elementsArrToCss(
         [
           {
             selector: ".box",
@@ -41,7 +41,7 @@ describe("selectorsObjectToCss", () => {
 
   test("Element with nested children and WITH includeModifiers option", () => {
     expect(
-      selectorsObjectToCss(
+      elementsArrToCss(
         [
           {
             selector: ".box",
@@ -69,7 +69,7 @@ describe("selectorsObjectToCss", () => {
 
   test("Element with nested children and WITHOUT includeModifiers option", () => {
     expect(
-      selectorsObjectToCss(
+      elementsArrToCss(
         [
           {
             selector: ".box",
@@ -95,7 +95,7 @@ describe("selectorsObjectToCss", () => {
 
   test("Real life example - navbar menu WITH includeModifiers option", () => {
     expect(
-      selectorsObjectToCss(
+      elementsArrToCss(
         [
           {
             selector: ".navbar",
@@ -181,7 +181,7 @@ describe("selectorsObjectToCss", () => {
 
   test("Real life example - navbar menu WITHOUT includeModifiers option", () => {
     expect(
-      selectorsObjectToCss(
+      elementsArrToCss(
         [
           {
             selector: ".navbar",

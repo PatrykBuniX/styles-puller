@@ -1,8 +1,8 @@
-import { htmlToSelectorsObjectsArr } from "../htmlToSelectorsObjectsArr";
+import { htmlToElementsArr } from "../htmlToElementsArr";
 
-describe("htmlToSelectorsObjectsArr", () => {
+describe("htmlToElementsArr", () => {
   test("Single element without className", () => {
-    expect(htmlToSelectorsObjectsArr("<div></div>")).toStrictEqual([
+    expect(htmlToElementsArr("<div></div>")).toStrictEqual([
       {
         selector: "div",
         modifiers: [],
@@ -13,7 +13,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Multiple elements with same selectors", () => {
     expect(
-      htmlToSelectorsObjectsArr("<div></div><div></div><div></div>")
+      htmlToElementsArr("<div></div><div></div><div></div>")
     ).toStrictEqual([
       {
         selector: "div",
@@ -35,9 +35,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Multiple elements with different selectors", () => {
     expect(
-      htmlToSelectorsObjectsArr(
-        `<div></div><span></span><p></p><p class="big"></p>`
-      )
+      htmlToElementsArr(`<div></div><span></span><p></p><p class="big"></p>`)
     ).toStrictEqual([
       {
         selector: "div",
@@ -64,7 +62,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Element with same selector children", () => {
     expect(
-      htmlToSelectorsObjectsArr(`<div class="wrapper">
+      htmlToElementsArr(`<div class="wrapper">
       <p class="text"><span class="red">hello</span></p>
       <p class="text"><span class="blue">hello blue!</span></p>
     </div>`)
@@ -102,7 +100,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Element with different selector children", () => {
     expect(
-      htmlToSelectorsObjectsArr(`<div class="wrapper">
+      htmlToElementsArr(`<div class="wrapper">
       <p class="text"><span class="red">hello</span></p>
       <p class="coolText"><span class="blue">hello blue!</span></p>
     </div>`)
@@ -140,7 +138,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Element with same selector children but with modifier (additional className)", () => {
     expect(
-      htmlToSelectorsObjectsArr(`<div class="wrapper">
+      htmlToElementsArr(`<div class="wrapper">
         <p class="text"><span class="red">hello</span></p>
         <p class="text text--active"><span class="red">hello</span></p>
       </div>`)
@@ -178,7 +176,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Multiple modifiers (additional classNames)", () => {
     expect(
-      htmlToSelectorsObjectsArr(`<div class="wrapper">
+      htmlToElementsArr(`<div class="wrapper">
         <p class="text text--active text--fixed"></p>
       </div>`)
     ).toStrictEqual([
@@ -198,7 +196,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Same selectors children with modifiers", () => {
     expect(
-      htmlToSelectorsObjectsArr(`<div class="wrapper">
+      htmlToElementsArr(`<div class="wrapper">
         <p class="text"><span class="red">hello</span></p>
         <p class="text"><span class="blue">hello blue!</span></p>
         <p class="text text--active"><span class="blue">hello blue!</span></p>
@@ -260,7 +258,7 @@ describe("htmlToSelectorsObjectsArr", () => {
 
   test("Real life example - navbar menu.", () => {
     expect(
-      htmlToSelectorsObjectsArr(`<nav id="navbar" class="navbar">
+      htmlToElementsArr(`<nav id="navbar" class="navbar">
       <a href="https://test.link/" class="navbar__logo">
           <img src="https://test.link/" alt="">
       </a>

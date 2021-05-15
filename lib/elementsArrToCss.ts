@@ -1,14 +1,14 @@
-import { SelectorsObjectsArr } from "./index";
+import { ElementsArr } from "./index";
 
-type SelectorsObjectToCssOptions = {
+type ElementsArrToCssOptions = {
   includeModifiers: boolean;
 };
 
-export const selectorsObjectToCss = (
-  selectorsObjectsArr: SelectorsObjectsArr,
-  { includeModifiers }: SelectorsObjectToCssOptions
+export const elementsArrToCss = (
+  elementsArr: ElementsArr,
+  { includeModifiers }: ElementsArrToCssOptions
 ): any => {
-  const getSelectors = (arr: SelectorsObjectsArr, currentElement: string) => {
+  const getSelectors = (arr: ElementsArr, currentElement: string) => {
     let cssString = "";
     arr.forEach((element) => {
       const { selector, children, modifiers } = element;
@@ -29,5 +29,5 @@ export const selectorsObjectToCss = (
     });
     return cssString;
   };
-  return getSelectors(selectorsObjectsArr, "");
+  return getSelectors(elementsArr, "");
 };

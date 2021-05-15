@@ -1,14 +1,12 @@
-import { SelectorsObjectsArr } from "./index";
+import { ElementsArr } from "./index";
 
-export const mergeDuplicates = (
-  arr: SelectorsObjectsArr
-): SelectorsObjectsArr => {
-  return arr.reduce<SelectorsObjectsArr>((acc, curr, i, self) => {
+export const mergeDuplicates = (arr: ElementsArr): ElementsArr => {
+  return arr.reduce<ElementsArr>((acc, curr, i, self) => {
     if (acc.find((el) => el.selector === curr.selector)) return acc; //if object already merged - skip
     const duplicates = self.filter((o) => curr.selector === o.selector);
 
     //merge same selectors children to one array
-    const allChildren: SelectorsObjectsArr = [];
+    const allChildren: ElementsArr = [];
     duplicates.forEach((d) => {
       allChildren.push(...d.children);
     });

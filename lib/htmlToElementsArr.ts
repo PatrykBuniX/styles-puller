@@ -1,4 +1,4 @@
-import { SelectorsObjectsArr } from "./index";
+import { ElementsArr } from "./index";
 
 export const createElementFromHTML = (htmlString: string) => {
   const div = document.createElement("div");
@@ -12,11 +12,9 @@ const isHTMLElement = (node: ChildNode): node is HTMLElement => {
   );
 };
 
-export const htmlToSelectorsObjectsArr = (
-  htmlString: string
-): SelectorsObjectsArr => {
-  function addSelectors(nodes: NodeListOf<ChildNode>): SelectorsObjectsArr {
-    return Array.from(nodes).reduce<SelectorsObjectsArr>((acc, node) => {
+export const htmlToElementsArr = (htmlString: string): ElementsArr => {
+  function addSelectors(nodes: NodeListOf<ChildNode>): ElementsArr {
+    return Array.from(nodes).reduce<ElementsArr>((acc, node) => {
       if (!isHTMLElement(node)) return acc;
       const { classList, tagName } = node;
 
@@ -40,6 +38,6 @@ export const htmlToSelectorsObjectsArr = (
     }, []);
   }
   const nodeElement = createElementFromHTML(htmlString);
-  const selectorsObjectArr = addSelectors(nodeElement);
-  return selectorsObjectArr;
+  const elementsArr = addSelectors(nodeElement);
+  return elementsArr;
 };
