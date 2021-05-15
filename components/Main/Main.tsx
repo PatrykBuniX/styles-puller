@@ -22,6 +22,7 @@ export const Main = () => {
     useState<HtmlStringToStylesOptions>({
       includeModifiers: true,
       mode: "scss",
+      tagNamesOnly: false,
     });
 
   const handleConvertClick = () => {

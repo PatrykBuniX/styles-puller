@@ -12,10 +12,12 @@ export type ElementsArr = {
 export type HtmlStringToStylesOptions = {
   includeModifiers: boolean;
   mode: "css" | "scss";
+  tagNamesOnly: boolean;
 };
 const htmlStringToStylesOptionsDefaults = {
   includeModifiers: true,
   mode: "scss" as const,
+  tagNamesOnly: false,
 };
 
 export const htmlStringToStyles = (
@@ -23,9 +25,10 @@ export const htmlStringToStyles = (
   {
     includeModifiers,
     mode,
+    tagNamesOnly,
   }: HtmlStringToStylesOptions = htmlStringToStylesOptionsDefaults
 ): string => {
-  const elementsArr = htmlToElementsArr(htmlString);
+  const elementsArr = htmlToElementsArr(htmlString, { tagNamesOnly });
   const mergedElementsArr = mergeDuplicates(elementsArr);
   switch (mode) {
     case "scss":

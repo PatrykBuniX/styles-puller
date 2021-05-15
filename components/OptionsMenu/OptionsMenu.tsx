@@ -59,6 +59,16 @@ export const OptionsMenu = ({
           </label>
         </div>
         <div className={styles.option}>
+          <input
+            checked={options.tagNamesOnly}
+            onChange={handleOptionChange}
+            type="checkbox"
+            name="tagNamesOnly"
+            id="tagNamesOnly"
+          />
+          <label htmlFor="tagNamesOnly">Use tag names only.</label>
+        </div>
+        <div className={styles.option}>
           <label htmlFor="mode">conversion mode: </label>
           <select
             onChange={handleOptionChange}

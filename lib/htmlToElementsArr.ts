@@ -12,7 +12,14 @@ const isHTMLElement = (node: ChildNode): node is HTMLElement => {
   );
 };
 
-export const htmlToElementsArr = (htmlString: string): ElementsArr => {
+type HtmlToElementsArrOptions = {
+  tagNamesOnly: boolean;
+};
+
+export const htmlToElementsArr = (
+  htmlString: string,
+  { tagNamesOnly }: HtmlToElementsArrOptions = { tagNamesOnly: false }
+): ElementsArr => {
   function addSelectors(nodes: NodeListOf<ChildNode>): ElementsArr {
     return Array.from(nodes).reduce<ElementsArr>((acc, node) => {
       if (!isHTMLElement(node)) return acc;
@@ -20,7 +27,7 @@ export const htmlToElementsArr = (htmlString: string): ElementsArr => {
 
       let selector = tagName.toLowerCase();
       let modifiers: string[] = [];
-      if (classList.value) {
+      if (classList.value && !tagNamesOnly) {
         const classNamesArr = classList.value
           .split(" ")
           .filter((v) => !!v)

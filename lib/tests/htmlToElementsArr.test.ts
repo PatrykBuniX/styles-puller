@@ -425,4 +425,122 @@ describe("htmlToElementsArr", () => {
       },
     ]);
   });
+  test(`Real life example - navbar menu WITH "tagNamesOnly" option.`, () => {
+    expect(
+      htmlToElementsArr(
+        `<nav id="navbar" class="navbar">
+      <a href="https://test.link/" class="navbar__logo">
+          <img src="https://test.link/" alt="">
+      </a>
+      <div id="menus-wrapper" class="menus-wrapper">
+          <ul class="navbar__menu">
+              <li>
+                  <a class="menu-link menu-link--active" href="https://test.link/">Welcome</a>
+              </li>
+              <li>
+                  <a class="menu-link" href="https://test.link/">Blog</a>
+              </li>
+              <li>
+                  <a class="menu-link" href="https://test.link/">Contact</a>
+              </li>
+          </ul>
+          <ul class="navbar__lang">
+              <li>
+                  <a class="link link--active" href="https://test.link/">PL</a>
+              </li>
+              <li>
+                  <a class="link" href="https://test.link/">EN</a>
+              </li>
+              <li>
+                  <a class="link" href="https://test.link/">FR</a>
+              </li>
+          </ul>
+          <div class="burger-wrapper">
+              <div id="burger" class="navbar__burger">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </div>
+          </div>
+      </div>
+  </nav>`,
+        { tagNamesOnly: true }
+      )
+    ).toStrictEqual([
+      {
+        selector: "nav",
+        modifiers: [],
+        children: [
+          {
+            selector: "a",
+            modifiers: [],
+            children: [{ selector: "img", modifiers: [], children: [] }],
+          },
+          {
+            selector: "div",
+            modifiers: [],
+            children: [
+              {
+                selector: "ul",
+                modifiers: [],
+                children: [
+                  {
+                    selector: "li",
+                    modifiers: [],
+                    children: [{ selector: "a", modifiers: [], children: [] }],
+                  },
+                  {
+                    selector: "li",
+                    modifiers: [],
+                    children: [{ selector: "a", modifiers: [], children: [] }],
+                  },
+                  {
+                    selector: "li",
+                    modifiers: [],
+                    children: [{ selector: "a", modifiers: [], children: [] }],
+                  },
+                ],
+              },
+              {
+                selector: "ul",
+                modifiers: [],
+                children: [
+                  {
+                    selector: "li",
+                    modifiers: [],
+                    children: [{ selector: "a", modifiers: [], children: [] }],
+                  },
+                  {
+                    selector: "li",
+                    modifiers: [],
+                    children: [{ selector: "a", modifiers: [], children: [] }],
+                  },
+                  {
+                    selector: "li",
+                    modifiers: [],
+                    children: [{ selector: "a", modifiers: [], children: [] }],
+                  },
+                ],
+              },
+              {
+                selector: "div",
+                modifiers: [],
+                children: [
+                  {
+                    selector: "div",
+                    modifiers: [],
+                    children: [
+                      { selector: "span", modifiers: [], children: [] },
+                      { selector: "span", modifiers: [], children: [] },
+                      { selector: "span", modifiers: [], children: [] },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
 });
