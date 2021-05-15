@@ -13,7 +13,7 @@
 }
 
 .header {
-  padding: 1rem 4rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,24 +27,25 @@
   color: var(--text);
   transition: color 0.2s ease-in-out;
   h1 {
-    font-size: 4rem;
-    line-height: 8rem;
+    font-size: 3rem;
+    line-height: 5rem;
     letter-spacing: 0.1em;
     code {
       padding: 0 1rem;
       background-color: var(--secondary);
-      border: 2px solid black;
+      border: 2px solid var(--black);
     }
   }
   p {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    margin-top: 1rem;
 
     strong {
       text-transform: uppercase;
       letter-spacing: 0.05em;
       padding: 0 1rem;
       background-color: var(--secondary);
-      border: 2px solid black;
+      border: 2px solid var(--black);
     }
 
     @media screen and (max-width: 750px) {
@@ -54,7 +55,7 @@
 }
 .toggleThemeButton {
   position: absolute;
-  right: 4rem;
+  right: 2rem;
 
   button {
     color: var(--text);
@@ -62,11 +63,11 @@
     border: none;
     padding: 1rem 2rem;
     text-transform: uppercase;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     cursor: pointer;
     margin: 1rem;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    border: 2px solid black;
+    border: 2px solid var(--black);
 
     &:hover {
       background-color: var(--secondary);
@@ -80,10 +81,7 @@
 
 .main {
   display: flex;
-  padding: 0 4rem;
-  @media screen and (max-width: 1300px) {
-    padding: 0 2rem;
-  }
+  padding: 0 2rem;
   justify-content: center;
   margin: auto 0;
 
@@ -113,16 +111,16 @@
   color: var(--text);
   background: none;
   border: none;
-  padding: 2rem 5rem;
+  padding: 2rem 4rem;
   @media screen and (max-width: 1300px) {
     padding: 1rem 2rem;
   }
   text-transform: uppercase;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  border: 2px solid black;
+  border: 2px solid var(--black);
 
   &:hover {
     background-color: var(--secondary);
@@ -137,7 +135,7 @@
   font-size: 1.6rem;
   cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  border: 2px solid black;
+  border: 2px solid var(--black);
 
   &:hover {
     background-color: var(--secondary);
