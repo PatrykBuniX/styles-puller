@@ -37,6 +37,9 @@ export const Editor = React.memo(
 
     return (
       <div className={styles.codeEditor}>
+        <h2>
+          Your <strong>{mode}</strong> code:
+        </h2>
         <MonacoEditor
           height="100%"
           value={value}
@@ -46,6 +49,7 @@ export const Editor = React.memo(
           loading={<Loading />}
           options={{
             minimap: { enabled: false },
+            padding: { top: 20 },
           }}
         />
         <div className={styles.buttonsWrapper}>

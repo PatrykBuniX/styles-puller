@@ -27,12 +27,12 @@
   background-color: var(--primary);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   position: relative;
   box-shadow: 0px 0px 20px -10px var(--black);
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 1rem 2rem;
@@ -40,7 +40,6 @@
     border: 2px solid var(--black);
     color: var(--text);
     text-align: center;
-    margin: 0 auto;
     margin-bottom: 2rem;
   }
 }

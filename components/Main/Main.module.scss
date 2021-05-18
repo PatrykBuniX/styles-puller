@@ -13,7 +13,7 @@
 }
 
 .header {
-  padding: 1rem 2rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,10 +27,11 @@
   color: var(--text);
   transition: color 0.2s ease-in-out;
   h1 {
-    font-size: 3rem;
+    font-size: 4rem;
     line-height: 5rem;
     letter-spacing: 0.1em;
     code {
+      border-radius: var(--radius);
       padding: 0 1rem;
       background-color: var(--secondary);
       border: 2px solid var(--black);
@@ -41,6 +42,7 @@
     margin-top: 1rem;
 
     strong {
+      border-radius: var(--radius);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       padding: 0 1rem;
@@ -58,6 +60,7 @@
   right: 2rem;
 
   button {
+    border-radius: var(--radius);
     color: var(--text);
     background: none;
     border: none;
@@ -81,7 +84,7 @@
 
 .main {
   display: flex;
-  padding: 0 2rem;
+  padding: 2rem;
   justify-content: center;
   margin: auto 0;
 
@@ -115,6 +118,7 @@
   @media screen and (max-width: 1300px) {
     padding: 1rem 2rem;
   }
+  border-radius: var(--radius);
   text-transform: uppercase;
   font-size: 1.6rem;
   font-weight: bold;
@@ -127,7 +131,45 @@
   }
 }
 
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  margin-top: 2rem;
+  background-color: var(--secondary);
+  border-top: 2px solid var(--black);
+  transition: background-color 0.2s ease-in-out;
+
+  p {
+    color: var(--text);
+    font-size: 1.6rem;
+    margin: 1rem;
+    transition: color 0.2s ease-in-out;
+
+    a {
+      color: var(--text);
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--black);
+      background-color: var(--primary);
+      transition: background-color 0.2s ease-in-out;
+      border-radius: var(--radius);
+
+      &:hover {
+        &:hover {
+          background-color: var(--secondary);
+        }
+      }
+    }
+  }
+}
+
 .optionsButton {
+  border-radius: var(--radius);
   color: var(--text);
   background: none;
   border: none;

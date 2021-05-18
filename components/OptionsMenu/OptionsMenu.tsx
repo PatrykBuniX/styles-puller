@@ -69,7 +69,6 @@ export const OptionsMenu = ({
           <label htmlFor="tagNamesOnly">Use tag names only.</label>
         </div>
         <div className={styles.option}>
-          <label htmlFor="mode">conversion mode: </label>
           <select
             onChange={handleOptionChange}
             name="mode"
@@ -79,6 +78,7 @@ export const OptionsMenu = ({
             <option value="scss">scss</option>
             <option value="css">css</option>
           </select>
+          <label htmlFor="mode">conversion mode.</label>
         </div>
       </div>
     </div>
