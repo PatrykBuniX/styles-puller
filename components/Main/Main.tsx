@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import beautify from "js-beautify";
 import { htmlStringToStyles, HtmlStringToStylesOptions } from "../../lib/";
 import styles from "./Main.module.scss";
@@ -52,6 +52,14 @@ export const Main = () => {
     localStorage.setItem(lsOptionsItem, JSON.stringify(options));
   };
 
+  const updateCss = useCallback((v: string) => {
+    setCssString(v);
+  }, []);
+
+  const updateHtml = useCallback((v: string) => {
+    setHtmlString(v);
+  }, []);
+
   return (
     <div className={clsx(styles.App, !isDarkTheme && styles.lightTheme)}>
       <header className={styles.header}>
@@ -73,7 +81,7 @@ export const Main = () => {
       <main className={styles.main}>
         <Editor
           value={htmlString}
-          updateEditorValue={(v) => setHtmlString(v)}
+          updateEditorValue={updateHtml}
           lang={"html"}
           mode={"html"}
           isDarkTheme={isDarkTheme}
@@ -91,7 +99,7 @@ export const Main = () => {
         </div>
         <Editor
           value={cssString}
-          updateEditorValue={(v) => setCssString(v)}
+          updateEditorValue={updateCss}
           lang={"css"}
           mode={conversionOptions.mode}
           isDarkTheme={isDarkTheme}
