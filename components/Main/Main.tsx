@@ -5,6 +5,7 @@ import styles from "./Main.module.scss";
 import { Editor } from "../Editor/Editor";
 import clsx from "clsx";
 import { OptionsMenu } from "../OptionsMenu/OptionsMenu";
+import { usePersistentState } from "../../hooks/usePersistentState";
 
 const exampleCode = `<div class="wrapper">
   <p class="text"><span class="red">hello</span></p>
@@ -13,26 +14,20 @@ const exampleCode = `<div class="wrapper">
   <p class="text text--active"><span class="red">hello</span></p>
 </div>`;
 
-const lsOptionsItem = "convertionOptions";
-
 export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);
   const [cssString, setCssString] = useState("");
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = usePersistentState(true, "darkTheme");
   const [conversionOptions, setConversionOptions] =
-    useState<HtmlStringToStylesOptions>({
-      includeModifiers: true,
-      mode: "scss",
-      tagNamesOnly: false,
-    });
-
-  useEffect(() => {
-    const usersOptions = localStorage.getItem(lsOptionsItem);
-    if (usersOptions) {
-      setConversionOptions(JSON.parse(usersOptions));
-    }
-  }, []);
+    usePersistentState<HtmlStringToStylesOptions>(
+      {
+        includeModifiers: true,
+        mode: "scss",
+        tagNamesOnly: false,
+      },
+      "convertionOptions"
+    );
 
   const handleConvertClick = () => {
     const css = htmlStringToStyles(htmlString, conversionOptions);
@@ -49,7 +44,6 @@ export const Main = () => {
     const css = htmlStringToStyles(htmlString, options);
     setCssString(beautify.css(css));
     setConversionOptions(options);
-    localStorage.setItem(lsOptionsItem, JSON.stringify(options));
   };
 
   const updateCss = useCallback((v: string) => {
