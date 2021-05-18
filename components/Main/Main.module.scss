@@ -114,7 +114,7 @@
   color: var(--text);
   background: none;
   border: none;
-  padding: 2rem 4rem;
+  padding: 2rem 3rem;
   @media screen and (max-width: 1300px) {
     padding: 1rem 2rem;
   }
@@ -125,6 +125,14 @@
   cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 1rem;
+    fill: var(--text);
+    transition: fill 0.2s ease-in-out;
+  }
 
   &:hover {
     background-color: var(--secondary);
@@ -175,8 +183,16 @@
   cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: var(--secondary);
+  }
+
+  svg {
+    margin-right: 1rem;
+    fill: var(--text);
+    transition: fill 0.2s ease-in-out;
   }
 }
