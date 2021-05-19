@@ -30,12 +30,11 @@
     font-size: 4rem;
     line-height: 5rem;
     letter-spacing: 0.1em;
-    code {
-      border-radius: var(--radius);
-      padding: 0 1rem;
-      background-color: var(--secondary);
-      border: 2px solid var(--black);
-    }
+    border-radius: var(--radius);
+    padding: 0 1rem;
+    background-color: var(--secondary);
+    border: 2px solid var(--black);
+    text-align: center;
   }
   p {
     font-size: 1.6rem;
@@ -99,6 +98,16 @@
   padding: 0 2rem;
   @media screen and (max-width: 1300px) {
     padding: 0 1rem;
+  }
+  width: 14%;
+  @media screen and (max-width: 1700px) {
+    width: 16%;
+  }
+  @media screen and (max-width: 1400px) {
+    width: 18%;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 100%;
   }
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import beautify from "js-beautify";
 import styles from "./Editor.module.scss";
 import MonacoEditor from "@monaco-editor/react";
@@ -16,6 +16,17 @@ interface Props {
 export const Editor = React.memo(
   ({ value, updateEditorValue, lang, mode, isDarkTheme }: Props) => {
     const [isCopiedActive, setIsCopiedActive] = useState(false);
+    const [editorHeight, setEditorHeight] = useState(700);
+
+    useEffect(() => {
+      setEditorHeight(window.innerWidth <= 1100 ? 500 : 700);
+      const handleWindowResize = () => {
+        setEditorHeight(window.innerWidth <= 1100 ? 500 : 700);
+      };
+      window.addEventListener("resize", handleWindowResize);
+
+      return () => window.removeEventListener("resize", handleWindowResize);
+    }, []);
 
     const prettify = () => {
       updateEditorValue(beautify[lang](value));
@@ -41,7 +52,7 @@ export const Editor = React.memo(
           Your <strong>{mode}</strong> code:
         </h2>
         <MonacoEditor
-          height="100%"
+          height={editorHeight}
           value={value}
           theme={isDarkTheme ? "vs-dark" : "light"}
           onChange={handleEditorChange}

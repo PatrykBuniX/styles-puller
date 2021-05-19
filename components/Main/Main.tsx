@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import beautify from "js-beautify";
 import { htmlStringToStyles, HtmlStringToStylesOptions } from "../../lib/";
 import styles from "./Main.module.scss";
