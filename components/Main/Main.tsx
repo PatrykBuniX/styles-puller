@@ -86,15 +86,13 @@ export const Main = () => {
         </div>
       </header>
       <main className={styles.main}>
-        {isDarkTheme !== null && (
-          <Editor
-            value={htmlString}
-            updateEditorValue={updateHtml}
-            lang={"html"}
-            mode={"html"}
-            isDarkTheme={isDarkTheme}
-          />
-        )}
+        <Editor
+          value={htmlString}
+          updateEditorValue={updateHtml}
+          lang={"html"}
+          mode={"html"}
+          isDarkTheme={!!isDarkTheme}
+        />
         <div className={styles.menuWrapper}>
           <button className={styles.convertButton} onClick={handleConvertClick}>
             <svg
@@ -125,15 +123,13 @@ export const Main = () => {
             <span>options</span>
           </button>
         </div>
-        {isDarkTheme !== null && (
-          <Editor
-            value={cssString}
-            updateEditorValue={updateCss}
-            lang={"css"}
-            mode={conversionOptions.mode}
-            isDarkTheme={isDarkTheme}
-          />
-        )}
+        <Editor
+          value={cssString}
+          updateEditorValue={updateCss}
+          lang={"css"}
+          mode={conversionOptions.mode}
+          isDarkTheme={!!isDarkTheme}
+        />
       </main>
       <footer className={styles.footer}>
         <p>&copy; 2021</p>
