@@ -33,3 +33,9 @@ input {
   --text: white;
   --radius: 10px;
 }
+
+body.lightTheme {
+    --primary: #edeeff;
+    --secondary: #8792e8;
+    --text: var(--black);
+}

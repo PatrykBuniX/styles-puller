@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import beautify from "js-beautify";
 import { htmlStringToStyles, HtmlStringToStylesOptions } from "../../lib/";
 import styles from "./Main.module.scss";
@@ -18,7 +18,7 @@ export const Main = () => {
   const [htmlString, setHtmlString] = useState(exampleCode);
   const [cssString, setCssString] = useState("");
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = usePersistentState(true, "darkTheme");
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean | null>(null);
   const [conversionOptions, setConversionOptions] =
     usePersistentState<HtmlStringToStylesOptions>(
       {
@@ -29,13 +29,26 @@ export const Main = () => {
       "convertionOptions"
     );
 
-  const handleConvertClick = () => {
-    const css = htmlStringToStyles(htmlString, conversionOptions);
-    setCssString(beautify.css(css));
-  };
+  //set theme mode state based on body className
+  useEffect(() => {
+    const isDarkPreferred = !document.body.classList.contains("lightTheme");
+    setIsDarkTheme(isDarkPreferred);
+  }, []);
+
+  //each time theme state's value changes (except the first one - when its value is null) save it to localStorage and update body className
+  useEffect(() => {
+    if (isDarkTheme === null) return;
+    window.localStorage.setItem("prefers-dark", JSON.stringify(isDarkTheme));
+    document.body.classList.toggle("lightTheme", !isDarkTheme);
+  }, [isDarkTheme]);
 
   const handleToggleTheme = () => {
     setIsDarkTheme((prev) => !prev);
+  };
+
+  const handleConvertClick = () => {
+    const css = htmlStringToStyles(htmlString, conversionOptions);
+    setCssString(beautify.css(css));
   };
 
   const handleConvertionOptionsChange = (
@@ -55,7 +68,7 @@ export const Main = () => {
   }, []);
 
   return (
-    <div className={clsx(styles.App, !isDarkTheme && styles.lightTheme)}>
+    <div className={clsx(styles.App)}>
       <header className={styles.header}>
         <div className={styles.headerLogo}>
           <h1>
@@ -73,13 +86,15 @@ export const Main = () => {
         </div>
       </header>
       <main className={styles.main}>
-        <Editor
-          value={htmlString}
-          updateEditorValue={updateHtml}
-          lang={"html"}
-          mode={"html"}
-          isDarkTheme={isDarkTheme}
-        />
+        {isDarkTheme !== null && (
+          <Editor
+            value={htmlString}
+            updateEditorValue={updateHtml}
+            lang={"html"}
+            mode={"html"}
+            isDarkTheme={isDarkTheme}
+          />
+        )}
         <div className={styles.menuWrapper}>
           <button className={styles.convertButton} onClick={handleConvertClick}>
             <svg
@@ -110,13 +125,15 @@ export const Main = () => {
             <span>options</span>
           </button>
         </div>
-        <Editor
-          value={cssString}
-          updateEditorValue={updateCss}
-          lang={"css"}
-          mode={conversionOptions.mode}
-          isDarkTheme={isDarkTheme}
-        />
+        {isDarkTheme !== null && (
+          <Editor
+            value={cssString}
+            updateEditorValue={updateCss}
+            lang={"css"}
+            mode={conversionOptions.mode}
+            isDarkTheme={isDarkTheme}
+          />
+        )}
       </main>
       <footer className={styles.footer}>
         <p>&copy; 2021</p>
