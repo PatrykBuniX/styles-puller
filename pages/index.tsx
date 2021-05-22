@@ -12,7 +12,7 @@ const handleCtrSave = (e: KeyboardEvent) => {
 const meta = {
   title: "StylesPuller",
   description:
-    "Styles puller is a tool which will help you in your frontend development! It will pull all selectors out of provided html code string and create empty css (or SCSS) template for you.",
+    "Styles puller is an online tool which will pull all selectors out of provided html code string and create empty css (or SCSS) template for you.",
 };
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
           description: meta.description,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_URL}/logo.png`,
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/logo.png`,
               width: 325,
               height: 325,
             },
