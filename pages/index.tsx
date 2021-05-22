@@ -32,9 +32,9 @@ function App() {
           description: meta.description,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/logo.png`,
-              width: 325,
-              height: 325,
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/logo_og.png`,
+              width: 1000,
+              height: 1000,
             },
           ],
           site_name: meta.title,
