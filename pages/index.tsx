@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { DefaultSeo } from "next-seo";
 import { useEffect } from "react";
 import { Main } from "../components/Main/Main";
 
@@ -8,6 +9,12 @@ const handleCtrSave = (e: KeyboardEvent) => {
   }
 };
 
+const meta = {
+  title: "StylesPuller",
+  description:
+    "Styles puller is a tool which will help you in your frontend development! It will pull all selectors out of provided html code string and create empty css (or SCSS) template for you.",
+};
+
 function App() {
   useEffect(() => {
     window.addEventListener("keydown", handleCtrSave, false);
@@ -15,6 +22,24 @@ function App() {
   }, []);
   return (
     <>
+      <DefaultSeo
+        title={meta.title}
+        description={meta.description}
+        openGraph={{
+          type: "website",
+          title: meta.title,
+          locale: "en-GB",
+          description: meta.description,
+          images: [
+            {
+              url: `https://${process.env.NEXT_PUBLIC_URL}/logo.png`,
+              width: 325,
+              height: 325,
+            },
+          ],
+          site_name: meta.title,
+        }}
+      />
       <Head>
         <title>StylesPuller</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />

@@ -15,7 +15,7 @@ const moonIcon = (
     viewBox="0 0 32 32"
     fill="none"
     stroke="#000"
-    stroke-width="2"
+    strokeWidth="2"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M14 2C9 2 3 7 3 15s6 14 14 14 13-6 13-11C19 25 7 13 14 2z" />
@@ -24,7 +24,11 @@ const moonIcon = (
 
 export const ToggleThemeButton = ({ isDarkTheme, handleToggleTheme }: Props) => {
   return (
-    <button className={styles.toggleThemeButton} onClick={handleToggleTheme}>
+    <button
+      aria-label="Toggle theme color"
+      className={styles.toggleThemeButton}
+      onClick={handleToggleTheme}
+    >
       {isDarkTheme ? sunIcon : moonIcon}
     </button>
   );
