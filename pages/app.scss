@@ -8,7 +8,7 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", "DejaVu Sans", "Verdana", sans-serif;
 
   @media (max-width: 1100px) {
     font-size: 50%;
@@ -21,7 +21,7 @@ html {
 
 button,
 input {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", "DejaVu Sans", "Verdana", sans-serif;
 }
 
 :root {
@@ -35,7 +35,7 @@ input {
 }
 
 body.lightTheme {
-    --primary: #edeeff;
-    --secondary: #8792e8;
-    --text: var(--black);
+  --primary: #edeeff;
+  --secondary: #8792e8;
+  --text: var(--black);
 }
