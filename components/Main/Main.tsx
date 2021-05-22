@@ -6,6 +6,7 @@ import { Editor } from "../Editor/Editor";
 import clsx from "clsx";
 import { OptionsMenu } from "../OptionsMenu/OptionsMenu";
 import { usePersistentState } from "../../hooks/usePersistentState";
+import { ToggleThemeButton } from "../ToggleThemeButton/ToggleThemeButton";
 
 const exampleCode = `<div class="wrapper">
   <p class="text"><span class="red">hello</span></p>
@@ -19,15 +20,14 @@ export const Main = () => {
   const [cssString, setCssString] = useState("");
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState<boolean | null>(null);
-  const [conversionOptions, setConversionOptions] =
-    usePersistentState<HtmlStringToStylesOptions>(
-      {
-        includeModifiers: true,
-        mode: "scss",
-        tagNamesOnly: false,
-      },
-      "convertionOptions"
-    );
+  const [conversionOptions, setConversionOptions] = usePersistentState<HtmlStringToStylesOptions>(
+    {
+      includeModifiers: true,
+      mode: "scss",
+      tagNamesOnly: false,
+    },
+    "convertionOptions"
+  );
 
   //set theme mode state based on body className
   useEffect(() => {
@@ -51,9 +51,7 @@ export const Main = () => {
     setCssString(beautify.css(css));
   };
 
-  const handleConvertionOptionsChange = (
-    options: HtmlStringToStylesOptions
-  ) => {
+  const handleConvertionOptionsChange = (options: HtmlStringToStylesOptions) => {
     const css = htmlStringToStyles(htmlString, options);
     setCssString(beautify.css(css));
     setConversionOptions(options);
@@ -70,20 +68,21 @@ export const Main = () => {
   return (
     <div className={clsx(styles.App)}>
       <header className={styles.header}>
-        <div className={styles.headerLogo}>
-          <h1>
-            <code>{"<styles> Puller"}</code>
-          </h1>
-          <p>
-            Pull <strong>css</strong> selectors <strong>out of</strong> your{" "}
+        <img
+          className={styles.headerLogo}
+          width="325"
+          height="105"
+          src="/logo.png"
+          alt="StylesPuller logo."
+        />
+        <h1 className={styles.headerText}>
+          <i>
+            Pull <strong>css</strong> selectors <strong>out&nbsp;of</strong> your{" "}
             <strong>html</strong> code!
-          </p>
-        </div>
-        <div className={styles.toggleThemeButton}>
-          <button onClick={handleToggleTheme}>
-            <strong>{isDarkTheme ? "Light" : "Dark"}</strong> theme
-          </button>
-        </div>
+          </i>
+        </h1>
+
+        <ToggleThemeButton isDarkTheme={!!isDarkTheme} handleToggleTheme={handleToggleTheme} />
       </header>
       <main className={styles.main}>
         <Editor
@@ -106,10 +105,7 @@ export const Main = () => {
             </svg>
             <span>convert</span>
           </button>
-          <button
-            className={styles.optionsButton}
-            onClick={() => setIsOptionsMenuOpen(true)}
-          >
+          <button className={styles.optionsButton} onClick={() => setIsOptionsMenuOpen(true)}>
             <svg
               width="25"
               height="25"

@@ -1,0 +1,14 @@
+.toggleThemeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  padding: 1rem;
+  cursor: pointer;
+  border: none;
+
+  svg {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}

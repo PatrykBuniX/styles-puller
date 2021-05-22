@@ -10,74 +10,37 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
 }
 .headerLogo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 32.5rem;
+  max-width: 90vw;
+  height: 10.5rem;
+  object-fit: contain;
+}
+
+.headerText {
+  font-weight: normal;
+  font-size: 1.8rem;
+  line-height: 3rem;
   color: var(--text);
-  transition: color 0.2s ease-in-out;
-  h1 {
-    font-size: 4rem;
-    line-height: 5rem;
-    letter-spacing: 0.1em;
+  text-align: center;
+
+  strong {
+    margin: 0 0.25rem;
     border-radius: var(--radius);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     padding: 0 1rem;
     background-color: var(--secondary);
     border: 2px solid var(--black);
-    text-align: center;
-  }
-  p {
-    font-size: 1.6rem;
-    margin-top: 1rem;
-
-    strong {
-      border-radius: var(--radius);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0 1rem;
-      background-color: var(--secondary);
-      border: 2px solid var(--black);
-    }
-
-    @media screen and (max-width: 750px) {
-      display: none;
-    }
-  }
-}
-.toggleThemeButton {
-  position: absolute;
-  right: 2rem;
-
-  button {
-    border-radius: var(--radius);
-    color: var(--text);
-    background: none;
-    border: none;
-    padding: 1rem 2rem;
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    cursor: pointer;
-    margin: 1rem;
-    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    border: 2px solid var(--black);
-
-    &:hover {
-      background-color: var(--secondary);
-    }
-  }
-
-  @media screen and (max-width: 750px) {
-    position: unset;
+    font-style: normal;
   }
 }
 
 .main {
-  display: flex;
   padding: 2rem;
+  display: flex;
   justify-content: center;
   margin: auto 0;
 
@@ -102,6 +65,7 @@
   }
   @media screen and (max-width: 1100px) {
     width: 100%;
+    margin: 2rem 0;
   }
   display: flex;
   flex-direction: column;
@@ -116,7 +80,6 @@
 .convertButton {
   color: var(--text);
   background: none;
-  border: none;
   padding: 2rem 3rem;
   @media screen and (max-width: 1300px) {
     padding: 1rem 2rem;
@@ -139,6 +102,30 @@
 
   &:hover {
     background-color: var(--secondary);
+  }
+}
+
+.optionsButton {
+  border-radius: var(--radius);
+  color: var(--text);
+  background: none;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: var(--secondary);
+  }
+
+  svg {
+    margin-right: 1rem;
+    fill: var(--text);
+    transition: fill 0.2s ease-in-out;
   }
 }
 
@@ -168,34 +155,8 @@
       border-radius: var(--radius);
 
       &:hover {
-        &:hover {
-          background-color: var(--secondary);
-        }
+        background-color: var(--secondary);
       }
     }
-  }
-}
-
-.optionsButton {
-  border-radius: var(--radius);
-  color: var(--text);
-  background: none;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.6rem;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  border: 2px solid var(--black);
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background-color: var(--secondary);
-  }
-
-  svg {
-    margin-right: 1rem;
-    fill: var(--text);
-    transition: fill 0.2s ease-in-out;
   }
 }
