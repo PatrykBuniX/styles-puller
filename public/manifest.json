@@ -36,6 +36,16 @@
       "sizes": "192x192",
       "type": "image/png",
       "density": "4.0"
+    },
+    {
+      "src": "/logo_og.png",
+      "sizes": "1000x1000",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "theme_color": "#6472c4",
+  "background_color": "#6472c4",
+  "start_url": "/",
+  "display": "standalone"
 }
