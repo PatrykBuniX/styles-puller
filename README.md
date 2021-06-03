@@ -1,8 +1,7 @@
 ## StylesPuller
 
-<a href="https://stylespuller.tk" style="display: block; text-align: center;">
-<img src="./public/logo.png" alt="StylesPuller" style="max-width: 450px; min-width: 300px;" width="70%"/>
-<br/>
+<a href="https://stylespuller.tk">
+<img src="./public/logo.png" alt="StylesPuller"/>
 </a>
 
 ## 🤔 What it is?
@@ -13,7 +12,7 @@ It will pull all classNames (or tagNames if element has no class specified) out 
 
 ## 🎯 Why I've created this?
 
-When I create new website I always start with html structure, then I'm filling it with some content (text and img's) and then looking on html code I'm preparing my css selectors to make styling faster. To make my life a little bit easier I've decided to create a tool which will do it for me. So after writing html I can just jump to defining my styles.
+When I create new website I always start with html structure, then I'm filling it with some content (text and images) and then looking on html code I'm preparing my css selectors to make styling faster. To make my life a little bit easier I've decided to create a tool which will do it for me. So after writing html I can just jump to defining my styles.
 
 ## 💡 How it works?
 
