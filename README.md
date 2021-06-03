@@ -4,7 +4,7 @@
 <img src="./public/logo.png" alt="StylesPuller"/>
 </a>
 
-## 🤔 What it is?
+## 🤔 What is it?
 
 It's an online tool which will help you in your frontend development!
 
