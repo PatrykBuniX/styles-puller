@@ -6,7 +6,8 @@ import { Editor } from "../Editor/Editor";
 import clsx from "clsx";
 import { OptionsMenu } from "../OptionsMenu/OptionsMenu";
 import { usePersistentState } from "../../hooks/usePersistentState";
-import { ToggleThemeButton } from "../ToggleThemeButton/ToggleThemeButton";
+import { Header } from "../Header/Header";
+import { Footer } from "../Footer/Footer";
 
 const exampleCode = `<div class="wrapper">
   <p class="text"><span class="red">hello</span></p>
@@ -67,23 +68,7 @@ export const Main = () => {
 
   return (
     <div className={clsx(styles.App)}>
-      <header className={styles.header}>
-        <img
-          className={styles.headerLogo}
-          width="325"
-          height="105"
-          src="/logo.png"
-          alt="StylesPuller logo."
-        />
-        <h1 className={styles.headerText}>
-          <i>
-            Pull <strong>css</strong> selectors <strong>out&nbsp;of</strong> your{" "}
-            <strong>html</strong> code!
-          </i>
-        </h1>
-
-        <ToggleThemeButton isDarkTheme={!!isDarkTheme} handleToggleTheme={handleToggleTheme} />
-      </header>
+      <Header isDarkTheme={!!isDarkTheme} handleToggleTheme={handleToggleTheme} />
       <main className={styles.main}>
         <Editor
           value={htmlString}
@@ -127,15 +112,7 @@ export const Main = () => {
           isDarkTheme={!!isDarkTheme}
         />
       </main>
-      <footer className={styles.footer}>
-        <p>&copy; 2021</p>
-        <p>
-          Created by{" "}
-          <a rel="noreferrer noopener" href="https://github.com/PatrykBuniX">
-            patrykbunix
-          </a>
-        </p>
-      </footer>
+      <Footer />
       {isOptionsMenuOpen && (
         <OptionsMenu
           handleMenuClose={() => setIsOptionsMenuOpen(false)}

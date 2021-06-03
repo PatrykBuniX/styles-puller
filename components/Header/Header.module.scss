@@ -1,0 +1,30 @@
+.header {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.headerLogo {
+  width: 32.5rem;
+  max-width: 90vw;
+  object-fit: contain;
+}
+
+.headerText {
+  font-weight: normal;
+  font-size: 1.8rem;
+  line-height: 3rem;
+  color: var(--text);
+  text-align: center;
+
+  strong {
+    margin: 0 0.25rem;
+    border-radius: var(--radius);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 1rem;
+    background-color: var(--secondary);
+    border: 2px solid var(--black);
+    font-style: normal;
+  }
+}
