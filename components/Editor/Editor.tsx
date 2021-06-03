@@ -5,13 +5,13 @@ import MonacoEditor from "@monaco-editor/react";
 import { useState } from "react";
 import { Loading } from "../Loading/Loading";
 
-interface Props {
+type Props = {
   updateEditorValue: (value: string) => void;
   value: string;
   lang: "html" | "css";
   mode: string;
   isDarkTheme: boolean;
-}
+};
 
 const Editor = React.memo(({ value, updateEditorValue, lang, mode, isDarkTheme }: Props) => {
   const [isCopiedActive, setIsCopiedActive] = useState(false);
