@@ -5,6 +5,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.1.1",
     "clsx": "^1.1.1",
+    "focus-trap-react": "^8.5.0",
     "js-beautify": "^1.13.5",
     "next": "^10.2.3",
     "next-pwa": "^5.2.21",

@@ -98,13 +98,13 @@ export const Main = () => {
         />
       </main>
       <Footer />
-      {isOptionsMenuOpen && (
+      {isOptionsMenuOpen ? (
         <OptionsMenu
           handleMenuClose={() => setIsOptionsMenuOpen(false)}
           handleConvertionOptionsChange={handleConvertionOptionsChange}
           options={conversionOptions}
         />
-      )}
+      ) : null}
     </div>
   );
 };
