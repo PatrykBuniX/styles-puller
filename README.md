@@ -1,6 +1,6 @@
 ## StylesPuller
 
-<a href="https://stylespuller.tk">
+<a href="https://styles-puller.vercel.app/">
 <img src="./public/logo.png" alt="StylesPuller"/>
 </a>
 
@@ -47,4 +47,4 @@ npm run dev
 
 ## 🚀 Live
 
-https://stylespuller.tk
+https://styles-puller.vercel.app/
